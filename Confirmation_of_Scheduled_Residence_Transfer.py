@@ -7,7 +7,6 @@ from pdf2image import convert_from_path, convert_from_bytes
 from io import BytesIO
 import textwrap
 from streamlit_drawable_canvas import st_canvas
-import base64
 import pandas as pd
 import smtplib
 from email.mime.multipart import MIMEMultipart
@@ -32,7 +31,8 @@ MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
 SMTP_SERVER = os.getenv("SMTP_SERVER")
 SMTP_PORT = int(os.getenv("SMTP_PORT"))
 
-st.set_page_config(page_title="전입예정확인서", layout="centered")
+# 세션 타임아웃 설정 (7분)
+st.set_page_config(page_title="전입예정확인서", layout="centered", session_timeout=420)
 
 # 학년을 영어 형식으로 변환하는 함수
 def grade_to_english(grade):
@@ -111,7 +111,7 @@ def validate_inputs(student_name, parent_name, student_phone, parent_phone, addr
 
 # 이메일 발송 함수
 def send_pdf_email(pdf_data, filename, recipient_email):
-    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    pattern = r'^[a-zA-Z0.9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     if not re.match(pattern, recipient_email):
         st.error(f"유효하지 않은 이메일 주소입니다: {recipient_email}")
         return False
@@ -151,6 +151,13 @@ def send_pdf_email(pdf_data, filename, recipient_email):
         st.error("이메일 설정을 확인하고 다시 시도해주세요.")
         return False
 
+# 세션 데이터 초기화 함수
+def clear_session_state():
+    keys_to_keep = []  # 필요한 경우 유지할 키 지정
+    for key in list(st.session_state.keys()):
+        if key not in keys_to_keep:
+            del st.session_state[key]
+
 # 1단계: 지역 및 학교 선택
 if st.session_state.stage == 1:
     st.subheader("1단계: 지역 및 학교")
@@ -188,7 +195,6 @@ elif st.session_state.stage == 2:
     st.subheader("2단계: 개인정보 수집·이용 동의서")
     st.markdown('<div class="instruction-message">개인정보 수집·이용 동의서를 확인 후 진행하세요.</div>', unsafe_allow_html=True)
 
-    # 샘플 PDF를 이미지로 표시
     consent_images = convert_pdf_to_images(CONSENT_SAMPLE_PATH, dpi=150)
     if consent_images:
         with st.expander("📄 개인정보 수집·이용 동의서 예시", expanded=True):
@@ -219,7 +225,6 @@ elif st.session_state.stage == 3:
     st.subheader("3단계: 전입예정확인서")
     st.markdown('<div class="instruction-message">작성칸 예시를 지운 후 작성하세요.</div>', unsafe_allow_html=True)
 
-    # 샘플 PDF를 이미지로 표시
     transfer_images = convert_pdf_to_images(TRANSFER_SAMPLE_PATH, dpi=150)
     if transfer_images:
         with st.expander("📄 전입예정확인서 예시", expanded=True):
@@ -286,10 +291,11 @@ elif st.session_state.stage == 3:
                 st.warning("학생과 법정대리인 모두 올바르게 서명하세요.")
                 st.stop()
 
-            student_sign_path = f"student_sign_{uuid.uuid4()}.png"
-            parent_sign_path = f"parent_sign_{uuid.uuid4()}.png"
-            Image.fromarray(canvas_student.image_data.astype('uint8'), mode='RGBA').save(student_sign_path, optimize=True)
-            Image.fromarray(canvas_parent.image_data.astype('uint8'), mode='RGBA').save(parent_sign_path, optimize=True)
+            # 서명을 메모리에서 처리
+            student_sign_buffer = BytesIO()
+            parent_sign_buffer = BytesIO()
+            Image.fromarray(canvas_student.image_data.astype('uint8'), mode='RGBA').save(student_sign_buffer, format='PNG', optimize=True)
+            Image.fromarray(canvas_parent.image_data.astype('uint8'), mode='RGBA').save(parent_sign_buffer, format='PNG', optimize=True)
 
             pages1 = convert_from_path(PDF_TEMPLATE_PATH, dpi=200)
             page1 = pages1[0].convert('RGBA')
@@ -366,14 +372,20 @@ elif st.session_state.stage == 3:
                         draw.text((x, y), text, font=font, fill='black')
 
             draw_texts(draw1, consent_positions, consent_map, is_transfer=False)
-            sign1 = Image.open(student_sign_path).resize((312, 104)).convert('RGBA')
-            sign2 = Image.open(parent_sign_path).resize((312, 104)).convert('RGBA')
+            student_sign_buffer.seek(0)
+            parent_sign_buffer.seek(0)
+            sign1 = Image.open(student_sign_buffer).resize((312, 104)).convert('RGBA')
+            sign2 = Image.open(parent_sign_buffer).resize((312, 104)).convert('RGBA')
             for x, y in consent_positions.get("{{student_sign_path}}", []):
                 page1.paste(sign1, (x - 15, y), sign1)
             for x, y in consent_positions.get("{{parent_sign_path}}", []):
                 page1.paste(sign2, (x - 15, y), sign2)
 
             draw_texts(draw2, transfer_positions, transfer_map, is_transfer=True)
+            student_sign_buffer.seek(0)
+            parent_sign_buffer.seek(0)
+            sign1 = Image.open(student_sign_buffer).resize((312, 104)).convert('RGBA')
+            sign2 = Image.open(parent_sign_buffer).resize((312, 104)).convert('RGBA')
             for x, y in transfer_positions.get("{{student_sign_path}}", []):
                 page2.paste(sign1, (x, y), sign1)
             for x, y in transfer_positions.get("{{parent_sign_path}}", []):
@@ -395,13 +407,12 @@ elif st.session_state.stage == 3:
         except Exception as e:
             st.error(f"PDF 생성 중 오류 발생: {e}")
         finally:
+            # 메모리 버퍼 정리
             try:
-                if 'student_sign_path' in locals() and os.path.exists(student_sign_path):
-                    os.remove(student_sign_path)
-                if 'parent_sign_path' in locals() and os.path.exists(parent_sign_path):
-                    os.remove(parent_sign_path)
+                student_sign_buffer.close()
+                parent_sign_buffer.close()
             except Exception as e:
-                st.warning(f"임시 파일 삭제 중 오류 발생: {e}")
+                st.warning(f"메모리 버퍼 정리 중 오류 발생: {e}")
 
 # 4단계: 미리보기 및 제출
 elif st.session_state.stage == 4:
@@ -410,16 +421,11 @@ elif st.session_state.stage == 4:
 
     if st.session_state.pdf_bytes and st.session_state.filename:
         try:
-            # PDF를 이미지로 변환
-            from pdf2image import convert_from_bytes
             images = convert_from_bytes(st.session_state.pdf_bytes, dpi=150)
-
-            # 이미지 미리보기를 확장 가능한 섹션에 표시
             with st.expander("📄 전입예정확인서 미리보기", expanded=True):
                 for i, image in enumerate(images):
                     st.image(image, use_container_width=True)
 
-            # PDF 다운로드 버튼
             st.download_button(
                 label="💾 전입예정확인서 내려받기",
                 data=st.session_state.pdf_bytes,
@@ -435,15 +441,20 @@ elif st.session_state.stage == 4:
                         if email_series.empty:
                             st.error(f"학교 '{st.session_state.selected_school}'에 해당하는 이메일이 없습니다.")
                             st.error("오류가 발생했습니다. 다시 처음부터 진행해주세요.")
+                            clear_session_state()
                             st.stop()
                         selected_school_email = email_series.values[0]
                         if send_pdf_email(st.session_state.pdf_bytes, st.session_state.filename, selected_school_email):
                             st.success("정상적으로 제출되었습니다. 협조해 주셔서 감사합니다.")
+                            # 제출 완료 후 즉시 세션 데이터 초기화
+                            clear_session_state()
                         else:
                             st.error("오류가 발생했습니다. 다시 처음부터 진행해주세요.")
+                            clear_session_state()
                     except Exception as e:
                         st.error(f"이메일 발송 중 오류 발생: {e}")
                         st.error("오류가 발생했습니다. 다시 처음부터 진행해주세요.")
+                        clear_session_state()
         except Exception as e:
             st.error(f"PDF 미리보기 이미지 생성 중 오류 발생: {e}")
             st.error("PDF 파일을 다운로드하여 확인해 주세요.")
@@ -453,5 +464,7 @@ elif st.session_state.stage == 4:
                 file_name=st.session_state.filename,
                 mime='application/pdf'
             )
+            clear_session_state()
     else:
         st.error("PDF가 생성되지 않았습니다. 3단계로 돌아가 PDF를 생성해 주세요.")
+        clear_session_state()
