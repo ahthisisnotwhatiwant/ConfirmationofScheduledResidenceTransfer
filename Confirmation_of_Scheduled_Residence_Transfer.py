@@ -204,20 +204,17 @@ elif st.session_state.stage == 2:
         st.error("동의서 샘플 PDF를 불러올 수 없습니다. 파일 경로를 확인해주세요.")
 
     st.markdown("☞ 위와 같이 개인정보 수집·이용에 동의하십니까?")
-    col1, col2 = st.columns(2)
-    with col1:
-        st.session_state.agree_to_collection = st.checkbox("동의합니다.")
-    with col2:
-        st.session_state.disagree_to_collection = st.checkbox("동의하지 않습니다.")
-    if st.session_state.agree_to_collection and st.session_state.disagree_to_collection:
-        st.warning("'동의합니다.'와 '동의하지 않습니다.' 중 **하나**만 선택하세요.")
-        st.session_state.agree_to_collection = False
-        st.session_state.disagree_to_collection = False
-    if st.session_state.agree_to_collection:
+    consent_choice = st.radio(
+        "개인정보 수집·이용 동의 여부를 선택하세요.",
+        options=["동의합니다.", "동의하지 않습니다."],
+        index=None,  # 기본적으로 아무것도 선택되지 않음
+        key="consent_radio"
+    )
+    if consent_choice == "동의합니다.":
         if st.button("✒️다음 단계로"):
             st.session_state.stage = 3
             st.rerun()
-    elif st.session_state.disagree_to_collection:
+    elif consent_choice == "동의하지 않습니다.":
         st.warning("개인정보 수집·이용에 동의 시에만 다음 단계로 진행할 수 있습니다.")
 
 # 3단계: 전입예정확인서
