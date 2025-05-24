@@ -107,8 +107,8 @@ def validate_inputs(student_name, parent_name, student_phone, parent_phone, addr
     phone_pattern = r'^\d{3}-\d{4}-\d{4}$'
     if not (re.match(phone_pattern, student_phone) and re.match(phone_pattern, parent_phone)):
         return False, "휴대전화 번호 형식이 올바르지 않습니다 → 옳은 예: 010-0000-0000"
-    if not re.match(r'^\d{1}+학년$', next_grade):
-        return False, "전학 예정 학년은 '학년' 단어를 포함해야 합니다 → 옳은 예: 0학년"
+    if not re.match(r'^[1-6]학년$', next_grade):
+        return False, "전학 예정 학년은 1~6학년 사이로 입력해야 합니다 → 옳은 예: 1학년"
     return True, ""
 
 # 이메일 발송 함수
