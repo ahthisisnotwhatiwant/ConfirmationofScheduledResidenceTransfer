@@ -231,13 +231,13 @@ elif st.session_state.stage == 3:
 
     col1, col2 = st.columns(2)
     with col1:
-        st.session_state.student_name = st.text_input("학생 이름", value="000")
+        st.session_state.student_name = st.text_input("학생 성명", value="000")
         student_school = st.text_input("현 소속 학교 및 학년", value="00초등학교 0학년")
         student_phone = st.text_input("학생 휴대전화 번호", value="010-0000-0000")
         st.session_state.move_date = st.date_input("전입 예정일", value=date.today())
         school_name = st.text_input("전학 예정 학교", value=st.session_state.selected_school)
     with col2:
-        parent_name = st.text_input("법정대리인 이름", value="000")
+        parent_name = st.text_input("법정대리인 성명", value="000")
         relationship = st.text_input("학생과의 관계", value="부, 모 등")
         parent_phone = st.text_input("법정대리인 휴대전화 번호", value="010-0000-0000")
         address = st.text_input("전입 예정 주소", value="00택지 A-0블록 00아파트")
