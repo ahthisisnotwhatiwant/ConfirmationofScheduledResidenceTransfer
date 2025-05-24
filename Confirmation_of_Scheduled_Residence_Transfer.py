@@ -56,14 +56,14 @@ st.markdown("""
     .title {
         font-size: 2.5rem;
         font-weight: bold;
+        color: #4c51bf;
         text-align: center;
         padding-bottom: 1rem;
         margin-bottom: 2rem;
-        /* 채도를 높여 밝고 쾌활한 느낌을 유지하면서 색감을 더 진하게 조정 */
-        background: linear-gradient(to right, #00BFFF, #1E90FF, #FF69B4, #FFD700, #FFA500); /* 채도가 높은 하늘색, 파랑, 핑크, 노랑, 주황 그라데이션 */
+        background: linear-gradient(to right, #f0f2ff, #ffffff);
         -webkit-background-clip: text;
-        color: transparent; /* 텍스트 색상을 투명하게 설정하여 배경 그라데이션이 보이도록 함 */
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.2); /* 텍스트 그림자 유지 */
+        color: transparent;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
     }
     .pdf-viewer {
         width: 100%;
