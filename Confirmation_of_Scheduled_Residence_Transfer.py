@@ -191,7 +191,7 @@ elif st.session_state.stage == 2:
     # 샘플 PDF를 이미지로 표시
     consent_images = convert_pdf_to_images(CONSENT_SAMPLE_PATH, dpi=150)
     if consent_images:
-        with st.expander("📄 개인정보 수집·이용 동의서", expanded=True):
+        with st.expander("📄 개인정보 수집·이용 동의서 예시", expanded=True):
             for i, image in enumerate(consent_images):
                 st.image(image, use_container_width=True)
     else:
@@ -222,7 +222,7 @@ elif st.session_state.stage == 3:
     # 샘플 PDF를 이미지로 표시
     transfer_images = convert_pdf_to_images(TRANSFER_SAMPLE_PATH, dpi=150)
     if transfer_images:
-        with st.expander("📄 전입예정확인서", expanded=True):
+        with st.expander("📄 전입예정확인서 예시", expanded=True):
             for i, image in enumerate(transfer_images):
                 st.image(image, use_container_width=True)
     else:
