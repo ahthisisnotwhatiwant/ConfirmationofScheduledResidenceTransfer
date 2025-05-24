@@ -3,7 +3,7 @@ from datetime import date
 import os
 import uuid
 from PIL import Image, ImageDraw, ImageFont
-from pdf2image import convert_from_path
+from pdf2image import convert_from_path, convert_from_bytes
 from io import BytesIO
 import textwrap
 from streamlit_drawable_canvas import st_canvas
@@ -40,6 +40,15 @@ def grade_to_english(grade):
     if number:
         return f"{number.group()}gr"
     return grade
+
+# PDF 파일을 이미지로 변환하는 함수
+def convert_pdf_to_images(pdf_path, dpi=150):
+    try:
+        images = convert_from_path(pdf_path, dpi=dpi)
+        return images
+    except Exception as e:
+        st.error(f"PDF를 이미지로 변환 중 오류 발생: {e}")
+        return None
 
 # 기존 CSS 유지
 st.markdown("""
@@ -90,12 +99,6 @@ if 'stage' not in st.session_state:
     st.session_state.move_date = None
     st.session_state.pdf_bytes = None
     st.session_state.filename = None
-
-# PDF 파일 읽어서 base64로 인코딩하는 함수
-def embed_pdf(pdf_path):
-    with open(pdf_path, "rb") as f:
-        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-    return base64_pdf
 
 # 입력 검증 함수
 def validate_inputs(student_name, parent_name, student_phone, parent_phone, address, next_grade):
@@ -184,8 +187,15 @@ if st.session_state.stage == 1:
 elif st.session_state.stage == 2:
     st.subheader("2단계: 개인정보 수집·이용 동의서")
     st.markdown('<div class="instruction-message">개인정보 수집·이용 동의서를 읽은 후 진행하여 주시기 바랍니다.</div>', unsafe_allow_html=True)
-    consent_pdf = embed_pdf(CONSENT_SAMPLE_PATH)
-    st.markdown(f'<iframe class="pdf-viewer" src="data:application/pdf;base64,{consent_pdf}"></iframe>', unsafe_allow_html=True)
+
+    # 샘플 PDF를 이미지로 표시
+    consent_images = convert_pdf_to_images(CONSENT_SAMPLE_PATH, dpi=150)
+    if consent_images:
+        with st.expander("📄 개인정보 수집·이용 동의서 샘플", expanded=True):
+            for i, image in enumerate(consent_images):
+                st.image(image, caption=f"동의서 샘플 페이지 {i+1}", use_container_width=True)
+    else:
+        st.error("동의서 샘플 PDF를 불러올 수 없습니다. 파일 경로를 확인해주세요.")
 
     st.markdown("☞ 위와 같이 개인정보 수집·이용에 동의하십니까?")
     col1, col2 = st.columns(2)
@@ -208,8 +218,15 @@ elif st.session_state.stage == 2:
 elif st.session_state.stage == 3:
     st.subheader("3단계: 전입예정확인서")
     st.markdown('<div class="instruction-message">작성란에 예시가 작성되어 있으니 지운 후 작성해주시기 바랍니다.</div>', unsafe_allow_html=True)
-    transfer_pdf = embed_pdf(TRANSFER_SAMPLE_PATH)
-    st.markdown(f'<iframe class="pdf-viewer" src="data:application/pdf;base64,{transfer_pdf}"></iframe>', unsafe_allow_html=True)
+
+    # 샘플 PDF를 이미지로 표시
+    transfer_images = convert_pdf_to_images(TRANSFER_SAMPLE_PATH, dpi=150)
+    if transfer_images:
+        with st.expander("📄 전입예정확인서 샘플", expanded=True):
+            for i, image in enumerate(transfer_images):
+                st.image(image, caption=f"전입예정확인서 샘플 페이지 {i+1}", use_container_width=True)
+    else:
+        st.error("전입예정확인서 샘플 PDF를 불러올 수 없습니다. 파일 경로를 확인해주세요.")
 
     col1, col2 = st.columns(2)
     with col1:
@@ -395,12 +412,12 @@ elif st.session_state.stage == 4:
         try:
             # PDF를 이미지로 변환
             from pdf2image import convert_from_bytes
-            images = convert_from_bytes(st.session_state.pdf_bytes, dpi=200)
+            images = convert_from_bytes(st.session_state.pdf_bytes, dpi=150)
 
             # 이미지 미리보기를 확장 가능한 섹션에 표시
             with st.expander("📄 전입예정확인서 미리보기", expanded=False):
                 for i, image in enumerate(images):
-                    st.image(image, use_container_width=True)
+                    st.image(image, caption=f"전입예정확인서 페이지 {i+1}", use_container_width=True)
 
             # PDF 다운로드 버튼
             st.download_button(
