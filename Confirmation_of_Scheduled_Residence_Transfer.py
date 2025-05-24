@@ -326,9 +326,9 @@ elif st.session_state.stage == 3:
 
             def get_font(key, idx):
                 if key == "{{address}}" and idx == 0:
-                    return ImageFont.truetype(FONT_PATH, 28)
+                    return ImageFont.truetype(FONT_PATH, 30)
                 if key == "{{address}}" and idx == 1:
-                    return ImageFont.truetype(FONT_PATH, 34)
+                    return ImageFont.truetype(FONT_PATH, 36)
                 return ImageFont.truetype(FONT_PATH, 42)
 
             consent_map = {
