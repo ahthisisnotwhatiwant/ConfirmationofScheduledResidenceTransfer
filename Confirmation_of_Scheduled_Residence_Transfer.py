@@ -244,45 +244,6 @@ elif st.session_state.stage == 3:
         next_grade = st.text_input("전학 예정 학년", value="0학년")
 
     col1, col2 = st.columns(2)
-# 입력 검증 함수
-def validate_inputs(student_name, parent_name, student_phone, parent_phone, address, next_grade):
-    if not all([student_name, parent_name, student_phone, parent_phone, address, next_grade]):
-        return False, "모든 칸을 작성하세요."
-    phone_pattern = r'^\d{3}-\d{4}-\d{4}$'
-    if not (re.match(phone_pattern, student_phone) and re.match(phone_pattern, parent_phone)):
-        return False, "휴대전화 번호 형식이 올바르지 않습니다 → 옳은 예: 010-0000-0000"
-    if not re.search(r'학년$', next_grade):
-        return False, "전학 예정 학년은 '학년' 단어를 포함해야 합니다 → 옳은 예: 1학년"
-    return True, ""
-
-# 3단계: 전입예정확인서
-if st.session_state.stage == 3:
-    st.subheader("3단계: 전입예정확인서")
-    st.markdown('<div class="instruction-message">작성칸 예시를 지운 후 작성하세요.</div>', unsafe_allow_html=True)
-
-    transfer_images = convert_pdf_to_images(TRANSFER_SAMPLE_PATH, dpi=150)
-    if transfer_images:
-        with st.expander("📄 전입예정확인서 예시", expanded=True):
-            for i, image in enumerate(transfer_images):
-                st.image(image, use_container_width=True)
-    else:
-        st.error("전입예정확인서 샘플 PDF를 불러올 수 없습니다. 파일 경로를 확인해주세요.")
-
-    col1, col2 = st.columns(2)
-    with col1:
-        st.session_state.student_name = st.text_input("학생 성명", value="000")
-        student_school = st.text_input("현 소속 학교 및 학년", value="00초등학교 0학년")
-        student_phone = st.text_input("학생 휴대전화 번호", value="010-0000-0000")
-        st.session_state.move_date = st.date_input("전입 예정일", value=date.today())
-        school_name = st.text_input("전학 예정 학교", value=st.session_state.selected_school, disabled=True)
-    with col2:
-        parent_name = st.text_input("법정대리인 성명", value="000")
-        relationship = st.text_input("학생과의 관계", value="부, 모 등")
-        parent_phone = st.text_input("법정대리인 휴대전화 번호", value="010-0000-0000")
-        address = st.text_input("전입 예정 주소", value="00택지 A-0블록 00아파트")
-        next_grade = st.text_input("전학 예정 학년", value="0학년")
-
-    col1, col2 = st.columns(2)
     with col1:
         st.write("학생 서명")
         canvas_student = st_canvas(
