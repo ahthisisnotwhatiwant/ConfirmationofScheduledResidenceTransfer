@@ -397,31 +397,51 @@ elif st.session_state.stage == 3:
 # 4단계: 미리보기 및 제출
 elif st.session_state.stage == 4:
     st.subheader("4단계: 미리보기 및 제출")
-    st.markdown('<div class="instruction-message">미리보기를 통해 작성한 전입예정확인서를 확인 후 최종 제출해 주세요.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="instruction-message">아래에서 작성한 전입예정확인서를 미리 확인한 후 최종 제출해 주세요.</div>', unsafe_allow_html=True)
 
     if st.session_state.pdf_bytes and st.session_state.filename:
-        base64_pdf = base64.b64encode(st.session_state.pdf_bytes).decode('utf-8')
-        pdf_display = f'<iframe class="pdf-viewer" src="data:application/pdf;base64,{base64_pdf}"></iframe>'
-        st.markdown(pdf_display, unsafe_allow_html=True)
+        try:
+            # PDF를 이미지로 변환
+            from pdf2image import convert_from_bytes
+            images = convert_from_bytes(st.session_state.pdf_bytes, dpi=200)
+            
+            # 이미지 표시
+            for i, image in enumerate(images):
+                st.image(image, caption=f"전입예정확인서 페이지 {i+1}", use_column_width=True)
 
-        st.download_button("💾 전입예정확인서 내려받기", data=st.session_state.pdf_bytes, file_name=st.session_state.filename, mime='application/pdf')
+            # PDF 다운로드 버튼
+            st.download_button(
+                label="💾 전입예정확인서 내려받기",
+                data=st.session_state.pdf_bytes,
+                file_name=st.session_state.filename,
+                mime='application/pdf'
+            )
 
-        if st.button("📮 전입예정확인서 최종 제출하기"):
-            with st.spinner("제출 중입니다. 잠시만 기다려 주세요."):
-                try:
-                    df = pd.read_excel(XLSX_FILE_PATH)
-                    email_series = df[df['학교'] == st.session_state.selected_school]['이메일']
-                    if email_series.empty:
-                        st.error(f"학교 '{st.session_state.selected_school}'에 해당하는 이메일이 없습니다.")
+            if st.button("📮 전입예정확인서 최종 제출하기"):
+                with st.spinner("제출 중입니다. 잠시만 기다려 주세요."):
+                    try:
+                        df = pd.read_excel(XLSX_FILE_PATH)
+                        email_series = df[df['학교'] == st.session_state.selected_school]['이메일']
+                        if email_series.empty:
+                            st.error(f"학교 '{st.session_state.selected_school}'에 해당하는 이메일이 없습니다.")
+                            st.error("오류가 발생했습니다. 다시 처음부터 진행해주세요.")
+                            st.stop()
+                        selected_school_email = email_series.values[0]
+                        if send_pdf_email(st.session_state.pdf_bytes, st.session_state.filename, selected_school_email):
+                            st.success("정상적으로 제출되었습니다. 협조해 주셔서 감사합니다.")
+                        else:
+                            st.error("오류가 발생했습니다. 다시 처음부터 진행해주세요.")
+                    except Exception as e:
+                        st.error(f"이메일 발송 중 오류 발생: {e}")
                         st.error("오류가 발생했습니다. 다시 처음부터 진행해주세요.")
-                        st.stop()
-                    selected_school_email = email_series.values[0]
-                    if send_pdf_email(st.session_state.pdf_bytes, st.session_state.filename, selected_school_email):
-                        st.success("정상적으로 제출되었습니다. 협조해 주셔서 감사합니다.")
-                    else:
-                        st.error("오류가 발생했습니다. 다시 처음부터 진행해주세요.")
-                except Exception as e:
-                    st.error(f"이메일 발송 중 오류 발생: {e}")
-                    st.error("오류가 발생했습니다. 다시 처음부터 진행해주세요.")
+        except Exception as e:
+            st.error(f"PDF 미리보기 이미지 생성 중 오류 발생: {e}")
+            st.error("PDF 파일을 다운로드하여 확인해 주세요.")
+            st.download_button(
+                label="💾 전입예정확인서 내려받기",
+                data=st.session_state.pdf_bytes,
+                file_name=st.session_state.filename,
+                mime='application/pdf'
+            )
     else:
         st.error("PDF가 생성되지 않았습니다. 3단계로 돌아가 PDF를 생성해 주세요.")
