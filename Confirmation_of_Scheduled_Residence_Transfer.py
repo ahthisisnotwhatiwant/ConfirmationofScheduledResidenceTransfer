@@ -396,10 +396,11 @@ elif st.session_state.stage == 4:
             # PDF를 이미지로 변환
             from pdf2image import convert_from_bytes
             images = convert_from_bytes(st.session_state.pdf_bytes, dpi=200)
-            
-            # 이미지 표시
-            for i, image in enumerate(images):
-                st.image(image, caption=f"전입예정확인서 페이지 {i+1}", use_column_width=True)
+
+            # 이미지 미리보기를 확장 가능한 섹션에 표시
+            with st.expander("📄 전입예정확인서 미리보기 (클릭하여 펼치기)", expanded=False):
+                for i, image in enumerate(images):
+                    st.image(image, caption=f"전입예정확인서 페이지 {i+1}", use_container_width=True)
 
             # PDF 다운로드 버튼
             st.download_button(
