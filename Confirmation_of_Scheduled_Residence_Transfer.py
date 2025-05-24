@@ -50,20 +50,18 @@ def convert_pdf_to_images(pdf_path, dpi=150):
         st.error(f"PDF를 이미지로 변환 중 오류 발생: {e}")
         return None
 
-# 기존 CSS 유지
+# 새로운 CSS로 업데이트
 st.markdown("""
     <style>
     .title {
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: #4c51bf;
-        text-align: center;
-        padding-bottom: 1rem;
-        margin-bottom: 2rem;
-        background: linear-gradient(to right, #f0f2ff, #ffffff);
+        background: linear-gradient(90deg, #00c6ff, #007bff, #1e3c72, #ffd700);
         -webkit-background-clip: text;
         color: transparent;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        font-size: 1.8em;
+        font-weight: bold;
+        text-align: center;
+        margin-top: -25px;
+        margin-bottom: 30px;
     }
     .pdf-viewer {
         width: 100%;
@@ -82,7 +80,7 @@ st.markdown("""
         text-align: center;
     }
     </style>
-    <h1 class="title">전입예정확인서</h1>
+    <div class="title">전입예정확인서</div>
 """, unsafe_allow_html=True)
 
 # 사용자 안내
