@@ -383,7 +383,7 @@ elif st.session_state.stage == 3:
             sign1 = Image.open(student_sign_buffer).resize((312, 104)).convert('RGBA')
             sign2 = Image.open(parent_sign_buffer).resize((312, 104)).convert('RGBA')
             for x, y in transfer_positions.get("{{student_sign_path}}", []):
-                page1.paste(sign1, (x, y), sign1)
+                page2.paste(sign1, (x, y), sign1)
             for x, y in transfer_positions.get("{{parent_sign_path}}", []):
                 page2.paste(sign2, (x, y), sign2)
 
