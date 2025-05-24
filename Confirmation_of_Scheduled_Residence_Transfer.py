@@ -86,7 +86,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # 사용자 안내
-st.markdown('<div class="instruction-message">----------  목  적  ---------- <br> 신설학교 학급 편성을 위한 정보 수집<br>----------  순  서  ---------- <br> ①지역 및 학교 선택 → ②개인정보 수집·이용 동의서 작성 → ③전입예정확인서 작성 → ④제출</div>', unsafe_allow_html=True)
+st.markdown('<div class="instruction-message">----------  목  적  ---------- <br> 신설학교 학급 편성을 위한 정보 수집<br>----------  순  서  ---------- <br> ①지역 및 학교 → ②개인정보 수집·이용 동의서 → ③전입예정확인서 → ④제출</div>', unsafe_allow_html=True)
 
 # Streamlit Session State 초기화
 if 'stage' not in st.session_state:
@@ -153,7 +153,7 @@ def send_pdf_email(pdf_data, filename, recipient_email):
 
 # 1단계: 지역 및 학교 선택
 if st.session_state.stage == 1:
-    st.subheader("1단계: 지역 및 학교 선택")
+    st.subheader("1단계: 지역 및 학교")
     st.markdown('<div class="instruction-message">전입 예정 지역 및 전학 예정 학교를 선택하세요.</div>', unsafe_allow_html=True)
 
     try:
