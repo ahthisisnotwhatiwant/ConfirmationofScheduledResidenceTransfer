@@ -103,7 +103,7 @@ if 'stage' not in st.session_state:
 # 입력 검증 함수
 def validate_inputs(student_name, parent_name, student_phone, parent_phone, address, next_grade):
     if not all([student_name, parent_name, student_phone, parent_phone, address, next_grade]):
-        return False, "모든 필드를 입력해주세요."
+        return False, "모든 필드를 입력하세요."
     phone_pattern = r'^\d{3}-\d{4}-\d{4}$'
     if not (re.match(phone_pattern, student_phone) and re.match(phone_pattern, parent_phone)):
         return False, "전화번호 형식이 올바르지 않습니다 (예: 010-0000-0000)."
@@ -154,7 +154,7 @@ def send_pdf_email(pdf_data, filename, recipient_email):
 # 1단계: 지역 및 학교 선택
 if st.session_state.stage == 1:
     st.subheader("1단계: 지역 및 학교 선택")
-    st.markdown('<div class="instruction-message">전입 예정 지역 및 전학 예정 학교를 선택해 주세요.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="instruction-message">전입 예정 지역 및 전학 예정 학교를 선택하세요.</div>', unsafe_allow_html=True)
 
     try:
         df = pd.read_excel(XLSX_FILE_PATH)
@@ -181,12 +181,12 @@ if st.session_state.stage == 1:
             st.session_state.stage = 2
             st.rerun()
         else:
-            st.warning("지역과 학교를 모두 선택해주세요.")
+            st.warning("지역과 학교를 모두 선택하세요.")
 
 # 2단계: 개인정보 수집·이용 동의서
 elif st.session_state.stage == 2:
     st.subheader("2단계: 개인정보 수집·이용 동의서")
-    st.markdown('<div class="instruction-message">개인정보 수집·이용 동의서를 확인해 주세요.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="instruction-message">개인정보 수집·이용 동의서를 확인 후 진행하세요.</div>', unsafe_allow_html=True)
 
     # 샘플 PDF를 이미지로 표시
     consent_images = convert_pdf_to_images(CONSENT_SAMPLE_PATH, dpi=150)
@@ -204,7 +204,7 @@ elif st.session_state.stage == 2:
     with col2:
         st.session_state.disagree_to_collection = st.checkbox("동의하지 않습니다.")
     if st.session_state.agree_to_collection and st.session_state.disagree_to_collection:
-        st.warning("'동의합니다.'와 '동의하지 않습니다.' 중 **하나**만 선택해주세요.")
+        st.warning("'동의합니다.'와 '동의하지 않습니다.' 중 **하나**만 선택하세요.")
         st.session_state.agree_to_collection = False
         st.session_state.disagree_to_collection = False
     if st.session_state.agree_to_collection:
@@ -217,7 +217,7 @@ elif st.session_state.stage == 2:
 # 3단계: 전입예정확인서
 elif st.session_state.stage == 3:
     st.subheader("3단계: 전입예정확인서")
-    st.markdown('<div class="instruction-message">작성란 예시를 지운 후 작성해 주세요.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="instruction-message">작성란 예시를 지운 후 작성하세요.</div>', unsafe_allow_html=True)
 
     # 샘플 PDF를 이미지로 표시
     transfer_images = convert_pdf_to_images(TRANSFER_SAMPLE_PATH, dpi=150)
@@ -283,7 +283,7 @@ elif st.session_state.stage == 3:
             parent_coverage = calculate_signature_coverage(canvas_parent.image_data)
 
             if student_coverage < 0.05 or parent_coverage < 0.05:
-                st.warning("학생과 법정대리인 모두 올바르게 서명해주세요.")
+                st.warning("학생과 법정대리인 모두 올바르게 서명하세요.")
                 st.stop()
 
             student_sign_path = f"student_sign_{uuid.uuid4()}.png"
@@ -406,7 +406,7 @@ elif st.session_state.stage == 3:
 # 4단계: 미리보기 및 제출
 elif st.session_state.stage == 4:
     st.subheader("4단계: 미리보기 및 제출")
-    st.markdown('<div class="instruction-message">미리보기를 통해 작성한 전입예정확인서를 확인해 주세요.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="instruction-message">미리보기를 통해 전입예정확인서를 확인 후 제출하세요.</div>', unsafe_allow_html=True)
 
     if st.session_state.pdf_bytes and st.session_state.filename:
         try:
@@ -415,7 +415,7 @@ elif st.session_state.stage == 4:
             images = convert_from_bytes(st.session_state.pdf_bytes, dpi=150)
 
             # 이미지 미리보기를 확장 가능한 섹션에 표시
-            with st.expander("📄 전입예정확인서 미리보기", expanded=False):
+            with st.expander("📄 전입예정확인서 미리보기", expanded=True):
                 for i, image in enumerate(images):
                     st.image(image, use_container_width=True)
 
