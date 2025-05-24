@@ -106,7 +106,7 @@ def validate_inputs(student_name, parent_name, student_phone, parent_phone, addr
         return False, "모든 필드를 입력하세요."
     phone_pattern = r'^\d{3}-\d{4}-\d{4}$'
     if not (re.match(phone_pattern, student_phone) and re.match(phone_pattern, parent_phone)):
-        return False, "전화번호 형식이 올바르지 않습니다 (예: 010-0000-0000)."
+        return False, "전화번호 형식이 올바르지 않습니다 (예: 010-0000-0000)"
     return True, ""
 
 # 이메일 발송 함수
