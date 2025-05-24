@@ -31,8 +31,8 @@ MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
 SMTP_SERVER = os.getenv("SMTP_SERVER")
 SMTP_PORT = int(os.getenv("SMTP_PORT"))
 
-# 세션 타임아웃 설정 (7분)
-st.set_page_config(page_title="전입예정확인서", layout="centered", session_timeout=420)
+# 페이지 설정 (session_timeout 제거)
+st.set_page_config(page_title="전입예정확인서", layout="centered")
 
 # 학년을 영어 형식으로 변환하는 함수
 def grade_to_english(grade):
@@ -111,7 +111,7 @@ def validate_inputs(student_name, parent_name, student_phone, parent_phone, addr
 
 # 이메일 발송 함수
 def send_pdf_email(pdf_data, filename, recipient_email):
-    pattern = r'^[a-zA-Z0.9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     if not re.match(pattern, recipient_email):
         st.error(f"유효하지 않은 이메일 주소입니다: {recipient_email}")
         return False
@@ -387,7 +387,7 @@ elif st.session_state.stage == 3:
             sign1 = Image.open(student_sign_buffer).resize((312, 104)).convert('RGBA')
             sign2 = Image.open(parent_sign_buffer).resize((312, 104)).convert('RGBA')
             for x, y in transfer_positions.get("{{student_sign_path}}", []):
-                page2.paste(sign1, (x, y), sign1)
+                page1.paste(sign1, (x, y), sign1)
             for x, y in transfer_positions.get("{{parent_sign_path}}", []):
                 page2.paste(sign2, (x, y), sign2)
 
