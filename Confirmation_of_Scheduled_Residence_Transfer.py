@@ -191,9 +191,9 @@ elif st.session_state.stage == 2:
     # 샘플 PDF를 이미지로 표시
     consent_images = convert_pdf_to_images(CONSENT_SAMPLE_PATH, dpi=150)
     if consent_images:
-        with st.expander("📄 개인정보 수집·이용 동의서 샘플", expanded=True):
+        with st.expander("📄 개인정보 수집·이용 동의서", expanded=True):
             for i, image in enumerate(consent_images):
-                st.image(image, caption=f"동의서 샘플 페이지 {i+1}", use_container_width=True)
+                st.image(image, use_container_width=True)
     else:
         st.error("동의서 샘플 PDF를 불러올 수 없습니다. 파일 경로를 확인해주세요.")
 
@@ -222,9 +222,9 @@ elif st.session_state.stage == 3:
     # 샘플 PDF를 이미지로 표시
     transfer_images = convert_pdf_to_images(TRANSFER_SAMPLE_PATH, dpi=150)
     if transfer_images:
-        with st.expander("📄 전입예정확인서 샘플", expanded=True):
+        with st.expander("📄 전입예정확인서", expanded=True):
             for i, image in enumerate(transfer_images):
-                st.image(image, caption=f"전입예정확인서 샘플 페이지 {i+1}", use_container_width=True)
+                st.image(image, use_container_width=True)
     else:
         st.error("전입예정확인서 샘플 PDF를 불러올 수 없습니다. 파일 경로를 확인해주세요.")
 
@@ -417,7 +417,7 @@ elif st.session_state.stage == 4:
             # 이미지 미리보기를 확장 가능한 섹션에 표시
             with st.expander("📄 전입예정확인서 미리보기", expanded=False):
                 for i, image in enumerate(images):
-                    st.image(image, caption=f"전입예정확인서 페이지 {i+1}", use_container_width=True)
+                    st.image(image, use_container_width=True)
 
             # PDF 다운로드 버튼
             st.download_button(
