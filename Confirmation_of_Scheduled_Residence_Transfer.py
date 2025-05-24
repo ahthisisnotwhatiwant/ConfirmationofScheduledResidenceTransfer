@@ -50,18 +50,20 @@ def convert_pdf_to_images(pdf_path, dpi=150):
         st.error(f"PDF를 이미지로 변환 중 오류 발생: {e}")
         return None
 
-# 새로운 CSS로 업데이트
+# 기존 CSS 유지
 st.markdown("""
     <style>
     .title {
-        background: linear-gradient(90deg, #00c6ff, #007bff, #1e3c72, #ffd700);
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #4c51bf;
+        text-align: center;
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
+        background: linear-gradient(to right, #f0f2ff, #ffffff);
         -webkit-background-clip: text;
         color: transparent;
-        font-size: 2.5em;
-        font-weight: bold;
-        text-align: center;
-        margin-top: -25px;
-        margin-bottom: 30px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
     }
     .pdf-viewer {
         width: 100%;
@@ -80,11 +82,11 @@ st.markdown("""
         text-align: center;
     }
     </style>
-    <div class="title">전입예정확인서</div>
+    <h1 class="title">전입예정확인서</h1>
 """, unsafe_allow_html=True)
 
 # 사용자 안내
-st.markdown('<div class="instruction-message"> 🎲 순  서 🎲 <br> ①지역 및 학교 → ②개인정보 수집·이용 동의서 → ③전입예정확인서 → ④제출</div>', unsafe_allow_html=True)
+st.markdown('<div class="instruction-message">----------  목  적  ---------- <br> 신설학교 학급 편성을 위한 정보 수집<br>----------  순  서  ---------- <br> ①지역 및 학교 → ②개인정보 수집·이용 동의서 → ③전입예정확인서 → ④제출</div>', unsafe_allow_html=True)
 
 # Streamlit Session State 초기화
 if 'stage' not in st.session_state:
