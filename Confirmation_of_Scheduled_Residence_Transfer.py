@@ -50,7 +50,6 @@ st.markdown("""
         color: #4c51bf;
         text-align: center;
         padding-bottom: 1rem;
-        border-bottom: 2px solid #d1d5db;
         margin-bottom: 2rem;
         background: linear-gradient(to right, #f0f2ff, #ffffff);
         -webkit-background-clip: text;
@@ -74,6 +73,7 @@ st.markdown("""
         text-align: center;
     }
     </style>
+    <h1 class="title">전입예정확인서</h1>
 """, unsafe_allow_html=True)
 
 st.markdown('<h1 class="title">전입예정확인서</h1>', unsafe_allow_html=True)
