@@ -103,10 +103,10 @@ if 'stage' not in st.session_state:
 # 입력 검증 함수
 def validate_inputs(student_name, parent_name, student_phone, parent_phone, address, next_grade):
     if not all([student_name, parent_name, student_phone, parent_phone, address, next_grade]):
-        return False, "모든 필드를 입력하세요."
+        return False, "모든 칸을 작성하세요."
     phone_pattern = r'^\d{3}-\d{4}-\d{4}$'
     if not (re.match(phone_pattern, student_phone) and re.match(phone_pattern, parent_phone)):
-        return False, "전화번호 형식이 올바르지 않습니다 → 옳은 예: 010-0000-0000"
+        return False, "휴대전화 번호 형식이 올바르지 않습니다 → 옳은 예: 010-0000-0000"
     return True, ""
 
 # 이메일 발송 함수
@@ -217,7 +217,7 @@ elif st.session_state.stage == 2:
 # 3단계: 전입예정확인서
 elif st.session_state.stage == 3:
     st.subheader("3단계: 전입예정확인서")
-    st.markdown('<div class="instruction-message">작성란 예시를 지운 후 작성하세요.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="instruction-message">작성칸 예시를 지운 후 작성하세요.</div>', unsafe_allow_html=True)
 
     # 샘플 PDF를 이미지로 표시
     transfer_images = convert_pdf_to_images(TRANSFER_SAMPLE_PATH, dpi=150)
