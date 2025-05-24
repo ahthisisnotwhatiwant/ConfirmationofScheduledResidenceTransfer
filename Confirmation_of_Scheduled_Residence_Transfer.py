@@ -256,7 +256,7 @@ def validate_inputs(student_name, parent_name, student_phone, parent_phone, addr
     return True, ""
 
 # 3단계: 전입예정확인서
-elif st.session_state.stage == 3:
+if st.session_state.stage == 3:
     st.subheader("3단계: 전입예정확인서")
     st.markdown('<div class="instruction-message">작성칸 예시를 지운 후 작성하세요.</div>', unsafe_allow_html=True)
 
