@@ -235,7 +235,8 @@ elif st.session_state.stage == 3:
         student_school = st.text_input("현 소속 학교 및 학년", value="00초등학교 0학년")
         student_phone = st.text_input("학생 휴대전화 번호", value="010-0000-0000")
         st.session_state.move_date = st.date_input("전입 예정일", value=date.today())
-        school_name = st.text_input("전학 예정 학교", value=st.session_state.selected_school)
+        st.text("전학 예정 학교")
+        st.text(st.session_state.selected_school)  # 비활성화된 전학 예정 학교 표시
     with col2:
         parent_name = st.text_input("법정대리인 성명", value="000")
         relationship = st.text_input("학생과의 관계", value="부, 모 등")
