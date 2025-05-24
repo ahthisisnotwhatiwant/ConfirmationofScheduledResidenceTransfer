@@ -389,7 +389,7 @@ elif st.session_state.stage == 3:
 # 4단계: 미리보기 및 제출
 elif st.session_state.stage == 4:
     st.subheader("4단계: 미리보기 및 제출")
-    st.markdown('<div class="instruction-message">아래에서 작성한 전입예정확인서를 미리 확인한 후 최종 제출해 주세요.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="instruction-message">제출할 전입예정확인서를 미리 확인 후 최종 제출해 주세요.</div>', unsafe_allow_html=True)
 
     if st.session_state.pdf_bytes and st.session_state.filename:
         try:
