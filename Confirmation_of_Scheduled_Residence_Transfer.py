@@ -186,7 +186,7 @@ if st.session_state.stage == 1:
 # 2단계: 개인정보 수집·이용 동의서
 elif st.session_state.stage == 2:
     st.subheader("2단계: 개인정보 수집·이용 동의서")
-    st.markdown('<div class="instruction-message">개인정보 수집·이용 동의서를 읽은 후 진행하여 주시기 바랍니다.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="instruction-message">개인정보 수집·이용 동의서를 확인해 주세요.</div>', unsafe_allow_html=True)
 
     # 샘플 PDF를 이미지로 표시
     consent_images = convert_pdf_to_images(CONSENT_SAMPLE_PATH, dpi=150)
@@ -217,7 +217,7 @@ elif st.session_state.stage == 2:
 # 3단계: 전입예정확인서
 elif st.session_state.stage == 3:
     st.subheader("3단계: 전입예정확인서")
-    st.markdown('<div class="instruction-message">작성란에 예시가 작성되어 있으니 지운 후 작성해주시기 바랍니다.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="instruction-message">작성란 예시를 지운 후 작성해주시기 바랍니다.</div>', unsafe_allow_html=True)
 
     # 샘플 PDF를 이미지로 표시
     transfer_images = convert_pdf_to_images(TRANSFER_SAMPLE_PATH, dpi=150)
