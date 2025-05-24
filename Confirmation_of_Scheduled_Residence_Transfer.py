@@ -79,11 +79,10 @@ st.markdown("""
 st.markdown('<h1 class="title">전입예정확인서</h1>', unsafe_allow_html=True)
 
 # 사용자 안내
-st.markdown("""
-### 목적 및 순서
-🗺️ **목적**: 신설학교 학급 편성을 위한 정보 수집
-📜 **순서**: 지역 및 학교 선택 → 개인정보 수집·이용 동의서 작성 → 정보 작성 → 제출
-""")
+
+st.markdown("""### 목적 및 순서""")
+st.markdown('<div class="instruction-message">🗺️ **목적**: 신설학교 학급 편성을 위한 정보 수집
+📜 **순서**: 지역 및 학교 선택 → 개인정보동의서 → 정보 작성 → 제출.</div>', unsafe_allow_html=True)
 
 # Streamlit Session State 초기화
 if 'stage' not in st.session_state:
