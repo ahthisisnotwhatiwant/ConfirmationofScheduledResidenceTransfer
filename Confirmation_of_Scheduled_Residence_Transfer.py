@@ -151,7 +151,7 @@ def send_pdf_email(pdf_data, filename, recipient_email):
 # 1단계: 지역 및 학교 선택
 if st.session_state.stage == 1:
     st.subheader("1단계: 지역 및 학교 선택")
-    st.markdown('<div class="instruction-message">전입 예정 지역 및 학교를 선택해 주세요.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="instruction-message">전입 예정 지역 및 전학 예정 학교를 선택해 주세요.</div>', unsafe_allow_html=True)
 
     try:
         df = pd.read_excel(XLSX_FILE_PATH)
@@ -171,7 +171,7 @@ if st.session_state.stage == 1:
         st.warning("선택한 지역에 학교 정보가 없습니다. 다른 지역을 선택해주세요.")
         st.session_state.selected_school = ""
     else:
-        st.session_state.selected_school = st.selectbox("학교를 선택하세요.", available_schools)
+        st.session_state.selected_school = st.selectbox("전학 예정 학교를 선택하세요.", available_schools)
 
     if st.button("✒️다음 단계로"):
         if st.session_state.selected_region and st.session_state.selected_school:
