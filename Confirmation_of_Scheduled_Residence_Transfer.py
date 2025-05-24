@@ -79,20 +79,9 @@ st.markdown("""
 st.markdown('<h1 class="title">전입예정확인서</h1>', unsafe_allow_html=True)
 
 # 사용자 안내
-st.markdown("""
-<style>
-.centered-text {
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 2rem 0;
-}
-</style>
-<div class="centered-text">
-    🗺️ 목적: 신설학교 학급 편성을 위한 정보 수집<br>
-    📜 순서: 지역 및 학교 선택 → 개인정보 수집·이용 동의서 및 정보 작성 → 제출
-</div>
-""", unsafe_allow_html=True)
+
+st.markdown("""### 목적 및 순서""")
+st.markdown('<div class="instruction-message">🗺️ 목적: 신설학교 학급 편성을 위한 정보 수집<br> 📜 순서: 지역 및 학교 선택 → 개인정보 수집·이용 동의서 및 정보 작성 → 제출</div>', unsafe_allow_html=True)
 
 # Streamlit Session State 초기화
 if 'stage' not in st.session_state:
