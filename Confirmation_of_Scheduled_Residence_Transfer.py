@@ -203,9 +203,8 @@ elif st.session_state.stage == 2:
     else:
         st.error("동의서 샘플 PDF를 불러올 수 없습니다. 파일 경로를 확인해주세요.")
 
-    st.markdown("☞ 위와 같이 개인정보 수집·이용에 동의하십니까?")
     consent_choice = st.radio(
-        "개인정보 수집·이용 동의 여부를 선택하세요.",
+        "☞ 위와 같이 개인정보 수집·이용에 동의하십니까?",
         options=["동의합니다.", "동의하지 않습니다."],
         index=None,  # 기본적으로 아무것도 선택되지 않음
         key="consent_radio"
