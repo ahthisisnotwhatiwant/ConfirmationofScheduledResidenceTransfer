@@ -57,7 +57,7 @@ st.markdown("""
         background: linear-gradient(90deg, #00c6ff, #007bff, #1e3c72, #ffd700);
         -webkit-background-clip: text;
         color: transparent;
-        font-size: 1.8em;
+        font-size: 2.5em;
         font-weight: bold;
         text-align: center;
         margin-top: -25px;
