@@ -240,7 +240,7 @@ elif st.session_state.stage == 3:
         parent_name = st.text_input("법정대리인 이름", value="000")
         relationship = st.text_input("학생과의 관계", value="부, 모 등")
         parent_phone = st.text_input("법정대리인 휴대전화 번호", value="010-0000-0000")
-        address = st.text_input("전입 예정 주소", value="00택지 A-0블록 00아파트 00동 00호")
+        address = st.text_input("전입 예정 주소", value="00택지 A-0블록 00아파트")
         next_grade = st.text_input("전학 예정 학년", value="0학년")
 
     col1, col2 = st.columns(2)
@@ -316,9 +316,9 @@ elif st.session_state.stage == 3:
                 "{{student_phone}}": [(462, 650)],
                 "{{parent_phone}}": [(1105, 650)],
                 "{{move_date}}": [(462, 847)],
-                "{{address}}": [(1140, 829), (520, 1185)],
-                "{{school_name}}": [(462, 1048), (320, 1245), (937, 2057)],
-                "{{next_grade}}": [(1115, 1048), (920, 1245)],
+                "{{address}}": [(1140, 829), (520, 1180)],
+                "{{school_name}}": [(462, 1048), (320, 1240), (937, 2057)],
+                "{{next_grade}}": [(1115, 1048), (920, 1240)],
                 "{{date.today}}": [(975, 1610)],
                 "{{student_sign_path}}": [(1050, 1740)],
                 "{{parent_sign_path}}": [(1050, 1880)],
