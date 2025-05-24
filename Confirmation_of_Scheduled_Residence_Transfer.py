@@ -106,9 +106,9 @@ def validate_inputs(student_name, parent_name, student_phone, parent_phone, addr
         return False, "모든 칸을 작성하세요."
     korean_pattern = r'^[가-힣]+$'
     if not re.match(korean_pattern, student_name):
-        return False, "학생 성명은 한글만 포함해야 합니다."
+        return False, "학생 성명은 한글 조합만 허용됩니다."
     if not re.match(korean_pattern, parent_name):
-        return False, "법정대리인 성명은 한글만 포함해야 합니다."
+        return False, "법정대리인 성명은 한글 조합만 허용됩니다."
     phone_pattern = r'^\d{3}-\d{4}-\d{4}$'
     if not (re.match(phone_pattern, student_phone) and re.match(phone_pattern, parent_phone)):
         return False, "휴대전화 번호는 '010-0000-0000' 형식으로 입력해야 합니다."
