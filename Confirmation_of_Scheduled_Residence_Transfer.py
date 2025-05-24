@@ -320,8 +320,8 @@ elif st.session_state.stage == 3:
                 "{{school_name}}": [(462, 1048), (320, 1240), (937, 2057)],
                 "{{next_grade}}": [(1115, 1048), (920, 1240)],
                 "{{date.today}}": [(975, 1610)],
-                "{{student_sign_path}}": [(1050, 1740)],
-                "{{parent_sign_path}}": [(1050, 1880)],
+                "{{student_sign_path}}": [(1050, 1730)],
+                "{{parent_sign_path}}": [(1050, 1870)],
             }
 
             def get_font(key, idx):
