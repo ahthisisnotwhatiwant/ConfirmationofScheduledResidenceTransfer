@@ -129,7 +129,7 @@ def send_pdf_email(pdf_data, filename, recipient_email):
     msg['To'] = recipient_email
     msg['Subject'] = f"전입예정확인서({filename})"
 
-    body = f"안녕하세요.\n\n{filename}가 제출되었습니다.\n첨부된 PDF 파일을 저장 후 이상이 없는지 확인하여 주세요.\n편리한 관리를 위해 파일명 변경을 권장드립니다.\n\n감사합니다."
+    body = f"안녕하세요.\n\n{filename}가 제출되었습니다.\nPDF 파일을 저장 후 이상이 없는지 확인해 주세요.\n보다 편리한 관리를 위해 파일명 변경을 권장드립니다.\n아울러, 철저한 개인정보 관리 부탁드립니다.\n\n감사합니다."
     msg.attach(MIMEText(body, 'plain', 'utf-8'))
 
     part = MIMEBase('application', 'pdf')
