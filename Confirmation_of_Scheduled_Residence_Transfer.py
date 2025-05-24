@@ -109,6 +109,11 @@ def validate_inputs(student_name, parent_name, student_phone, parent_phone, addr
         return False, "휴대전화 번호는 '010-0000-0000' 형식으로 입력해야 합니다."
     if not re.match(r'^[1-6]학년$', next_grade):
         return False, "전학 예정 학년은 '1~6학년' 형식으로 입력해야 합니다."
+    korean_pattern = r'^[가-힣]+$'
+    if not re.match(korean_pattern, student_name):
+        return False, "학생 성명은 한글만 포함해야 합니다."
+    if not re.match(korean_pattern, parent_name):
+        return False, "법정대리인 성명은 한글만 포함해야 합니다."
     return True, ""
 
 # 이메일 발송 함수
