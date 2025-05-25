@@ -131,7 +131,7 @@ def validate_inputs(student_name, parent_name, student_school, student_phone, pa
     if address == "택지 A-블록 아파트":
         return False, "전입 예정 주소를 올바르게 작성하세요."
     if not re.match(r'^[1-6]학년$', next_grade):
-        return False, "전학 예정 학년은 '1~6학년' 형식만 허용됩니다."
+        return False, "전학 예정 학년은 '1~6학년'만 허용됩니다."
     return True, ""
 
 # 이메일 발송 함수
