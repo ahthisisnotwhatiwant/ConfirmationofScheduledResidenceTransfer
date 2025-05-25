@@ -189,7 +189,7 @@ def format_phone_number(phone_input):
     digits = ''.join(filter(str.isdigit, phone_input))
     # 11자리 숫자인지 확인
     if len(digits) != 11 or not digits.startswith('010'):
-        return None, "휴대전화 번호는 010으로 시작하며 숫자로만 작성하세요."
+        return None, "휴대전화 번호는 010으로 시작하며 숫자만 작성하세요."
     # 010-XXXX-XXXX 형식으로 변환
     formatted = f"{digits[:3]}-{digits[3:7]}-{digits[7:]}"
     return formatted, None
@@ -275,7 +275,7 @@ elif st.session_state.stage == 3:
         student_school = st.text_input("현 소속 학교 및 학년", value="학교 학년")
         student_phone_input = st.text_input(
             "학생 휴대전화 번호",
-            placeholder="숫자만 작성",
+            placeholder="숫자만 작성, 01012341234",
             key="student_phone_input"
         )
         if student_phone_input:
@@ -298,7 +298,7 @@ elif st.session_state.stage == 3:
         relationship = st.text_input("학생과의 관계", value="부, 모 등")
         parent_phone_input = st.text_input(
             "법정대리인 휴대전화 번호",
-            placeholder="숫자만 작성",
+            placeholder="숫자만 작성, 01012341234",
             key="parent_phone_input"
         )
         if parent_phone_input:
