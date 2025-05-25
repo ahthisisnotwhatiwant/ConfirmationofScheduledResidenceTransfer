@@ -101,14 +101,16 @@ if 'stage' not in st.session_state:
     st.session_state.filename = None
 
 # 입력 검증 함수
-def validate_inputs(student_name, parent_name, student_phone, parent_phone, address, next_grade, move_date):
-    if not all([student_name, parent_name, student_phone, parent_phone, address, next_grade, move_date]):
+def validate_inputs(student_name, parent_name, student_school, student_phone, parent_phone, address, next_grade, move_date):
+    if not all([student_name, parent_name, student_school, student_phone, parent_phone, address, next_grade, move_date]):
         return False, "모든 칸을 올바르게 작성하세요."
     korean_pattern = r'^[가-힣]+$'
     if not re.match(korean_pattern, student_name):
         return False, "성명은 한글 조합만 허용됩니다."
     if not re.match(korean_pattern, parent_name):
         return False, "성명은 한글 조합만 허용됩니다."
+    if student_school == "학교 학년":
+        return False, "현 소속 학교 및 학년을 올바르게 작성하세요."
     phone_pattern = r'^\d{3}-\d{4}-\d{4}$'
     if not (re.match(phone_pattern, student_phone) and re.match(phone_pattern, parent_phone)):
         return False, "휴대전화 번호는 '010-0000-0000' 형식만 허용됩니다."
