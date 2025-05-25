@@ -95,7 +95,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # 사용자 안내
-st.markdown('<div class="instruction-message">🍀 진  행 순  서 🍀<br> ①지역 및 학교 → ②개인정보 수집·이용 동의서 → ③전입예정확인서 → ④미리보기 및 제출</div>', unsafe_allow_html=True)
+st.markdown('<div class="instruction-message">🍀 진  행 순  서 🍀<br> ①지역 및 학교 → ②개인정보 수집·이용 동의서 → ③전입예정확인서 → ④미리보기 및 제출<br>⚠️ 안  내  사  항 ⚠️<br> 제출 정보가 오류로 판단될 시, 자료 활용에 제한될 수 있습니다.</div>', unsafe_allow_html=True)
 
 # Streamlit Session State 초기화
 if 'stage' not in st.session_state:
@@ -124,14 +124,14 @@ def validate_inputs(student_name, parent_name, student_school, student_phone, pa
         return False, "성명은 예시 이름을 사용할 수 없습니다."
     if student_school == "학교 학년":
         return False, "현 소속 학교 및 학년을 올바르게 작성하세요."
-    if student_phone == "010-1234-1234":
+    if student_phone == "010-0000-0000":
         return False, "휴대전화 번호는 예시 번호를 사용할 수 없습니다."
-    if parent_phone == "010-1234-1234":
+    if parent_phone == "010-0000-0000":
         return False, "휴대전화 번호는 예시 번호를 사용할 수 없습니다."
     if address == "택지 A-블록 아파트":
         return False, "전입 예정 주소를 올바르게 작성하세요."
     if not re.match(r'^[1-6]학년$', next_grade):
-        return False, "전학 예정 학년은 '1~6학년'만 허용됩니다."
+        return False, "전학 예정 학년은 '1~6학년' 형식만 허용됩니다."
     return True, ""
 
 # 이메일 발송 함수
@@ -187,6 +187,9 @@ def clear_session_state():
 def format_phone_number(phone_input):
     # 숫자만 추출
     digits = ''.join(filter(str.isdigit, phone_input))
+    # 11자리 숫자인지 확인
+    if len(digits) != 11 or not digits.startswith('010'):
+        return None, "휴대전화 번호는 010으로 시작하며 숫자만 작성하세요."
     # 010-XXXX-XXXX 형식으로 변환
     formatted = f"{digits[:3]}-{digits[3:7]}-{digits[7:]}"
     return formatted, None
