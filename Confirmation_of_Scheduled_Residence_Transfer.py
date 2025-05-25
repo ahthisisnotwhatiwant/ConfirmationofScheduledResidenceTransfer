@@ -117,8 +117,7 @@ def validate_inputs(student_name, parent_name, student_phone, parent_phone, addr
     if parent_phone == "010-0000-0000":
         return False, "휴대전화 번호는 예시 번호를 사용할 수 없습니다."
     if transfer_date == date(2000, 1, 1):
-        st.error("전입 예정일을 확인해주세요.")
-        return False,
+        return False, "전입 예정일을 확인해주세요."
     if not re.match(r'^[1-6]학년$', next_grade):
         return False, "전학 예정 학년은 '1~6학년' 형식으로 입력해야 합니다."
     return True, ""
