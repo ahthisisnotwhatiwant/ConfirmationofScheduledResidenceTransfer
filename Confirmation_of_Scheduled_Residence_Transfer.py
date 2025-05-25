@@ -103,21 +103,21 @@ if 'stage' not in st.session_state:
 # 입력 검증 함수
 def validate_inputs(student_name, parent_name, student_phone, parent_phone, address, next_grade, move_date):
     if not all([student_name, parent_name, student_phone, parent_phone, address, next_grade, move_date]):
-        return False, "모든 칸을 작성하세요."
+        return False, "모든 칸을 올바르게 작성하세요."
     korean_pattern = r'^[가-힣]+$'
     if not re.match(korean_pattern, student_name):
-        return False, "학생 성명은 한글 조합만 허용됩니다."
+        return False, "성명은 한글 조합만 허용됩니다."
     if not re.match(korean_pattern, parent_name):
-        return False, "법정대리인 성명은 한글 조합만 허용됩니다."
+        return False, "성명은 한글 조합만 허용됩니다."
     phone_pattern = r'^\d{3}-\d{4}-\d{4}$'
     if not (re.match(phone_pattern, student_phone) and re.match(phone_pattern, parent_phone)):
-        return False, "휴대전화 번호는 '010-0000-0000' 형식으로 입력해야 합니다."
+        return False, "휴대전화 번호는 '010-0000-0000' 형식만 허용됩니다."
     if student_phone == "010-0000-0000":
         return False, "휴대전화 번호는 예시 번호를 사용할 수 없습니다."
     if parent_phone == "010-0000-0000":
         return False, "휴대전화 번호는 예시 번호를 사용할 수 없습니다."
     if not re.match(r'^[1-6]학년$', next_grade):
-        return False, "전학 예정 학년은 '1~6학년' 형식으로 입력해야 합니다."
+        return False, "전학 예정 학년은 '1~6학년' 형식만 허용됩니다."
     return True, ""
 
 # 이메일 발송 함수
