@@ -112,12 +112,16 @@ if 'stage' not in st.session_state:
 # 입력 검증 함수
 def validate_inputs(student_name, parent_name, student_school, student_phone, parent_phone, address, next_grade, move_date):
     if not all([student_name, parent_name, student_school, student_phone, parent_phone, address, next_grade, move_date]):
-        return False, "모든 작성칸을 올바르게 작성하세요."
+        return False, "모든 칸을 올바르게 작성하세요."
     korean_pattern = r'^[가-힣]+$'
     if not re.match(korean_pattern, student_name):
         return False, "성명은 한글 조합만 허용됩니다."
     if not re.match(korean_pattern, parent_name):
         return False, "성명은 한글 조합만 허용됩니다."
+    if student_name == "홍길동":
+        return False, "학생 성명은 예시 이름 '홍길동'을 사용할 수 없습니다."
+    if parent_name == "홍길동":
+        return False, "법정대리인 성명은 예시 이름 '홍길동'을 사용할 수 없습니다."
     if student_school == "학교 학년":
         return False, "현 소속 학교 및 학년을 올바르게 작성하세요."
     if student_phone == "010-0000-0000":
@@ -263,7 +267,11 @@ elif st.session_state.stage == 3:
 
     col1, col2 = st.columns(2)
     with col1:
-        st.session_state.student_name = st.text_input("학생 성명", value="")
+        st.session_state.student_name = st.text_input(
+            "학생 성명",
+            placeholder="홍길동",
+            key="student_name_input"
+        )
         student_school = st.text_input("현 소속 학교 및 학년", value="학교 학년")
         student_phone_input = st.text_input(
             "학생 휴대전화 번호",
@@ -282,7 +290,11 @@ elif st.session_state.stage == 3:
         st.session_state.move_date = st.date_input("전입 예정일", value=None)
         school_name = st.text_input("전학 예정 학교", value=st.session_state.selected_school, disabled=True)
     with col2:
-        parent_name = st.text_input("법정대리인 성명", value="")
+        parent_name = st.text_input(
+            "법정대리인 성명",
+            placeholder="홍길동",
+            key="parent_name_input"
+        )
         relationship = st.text_input("학생과의 관계", value="부, 모 등")
         parent_phone_input = st.text_input(
             "법정대리인 휴대전화 번호",
