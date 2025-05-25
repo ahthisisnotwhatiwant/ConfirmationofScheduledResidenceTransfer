@@ -243,7 +243,7 @@ elif st.session_state.stage == 2:
 # 3단계: 전입예정확인서
 elif st.session_state.stage == 3:
     st.subheader("3단계: 전입예정확인서")
-    st.markdown('<div class="instruction-message">작성칸 예시를 지운 후 작성하세요.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="instruction-message">모든 작성칸을 올바르게 작성하세요.</div>', unsafe_allow_html=True)
 
     transfer_images = convert_pdf_to_images(TRANSFER_SAMPLE_PATH, dpi=150)
     if transfer_images:
