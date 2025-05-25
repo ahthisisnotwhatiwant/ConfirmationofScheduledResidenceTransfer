@@ -308,8 +308,8 @@ elif st.session_state.stage == 3:
                 parent_phone = formatted_parent_phone
         else:
             parent_phone = ""
-        address = st.text_input("전입 예정 주소", value="택지 A-블록 아파트")
         st.session_state.move_date = st.date_input("전입 예정일", value=None)
+        address = st.text_input("전입 예정 주소", value="택지 A-블록 아파트")
         school_name = st.text_input("전학 예정 학교", value=st.session_state.selected_school, disabled=True)
         next_grade = st.text_input("전학 예정 학년", value="학년")
 
