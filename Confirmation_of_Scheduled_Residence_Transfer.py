@@ -101,8 +101,8 @@ if 'stage' not in st.session_state:
     st.session_state.filename = None
 
 # 입력 검증 함수
-def validate_inputs(student_name, parent_name, student_phone, parent_phone, address, next_grade, move_date):
-    if not all([student_name, parent_name, student_phone, parent_phone, address, next_grade, move_date]):
+def validate_inputs(student_name, parent_name, student_phone, parent_phone, address, next_grade):
+    if not all([student_name, parent_name, student_phone, parent_phone, address, next_grade]):
         return False, "모든 칸을 작성하세요."
     korean_pattern = r'^[가-힣]+$'
     if not re.match(korean_pattern, student_name):
@@ -116,8 +116,6 @@ def validate_inputs(student_name, parent_name, student_phone, parent_phone, addr
         return False, "휴대전화 번호는 예시 번호를 사용할 수 없습니다."
     if parent_phone == "010-0000-0000":
         return False, "휴대전화 번호는 예시 번호를 사용할 수 없습니다."
-    if transfer_date == date(2000, 1, 1):
-        return False, "전입 예정일을 확인해주세요."
     if not re.match(r'^[1-6]학년$', next_grade):
         return False, "전학 예정 학년은 '1~6학년' 형식으로 입력해야 합니다."
     return True, ""
@@ -247,9 +245,7 @@ elif st.session_state.stage == 3:
         st.session_state.student_name = st.text_input("학생 성명", value="000")
         student_school = st.text_input("현 소속 학교 및 학년", value="00초등학교 0학년")
         student_phone = st.text_input("학생 휴대전화 번호", value="010-0000-0000")
-        if 'move_date' not in st.session_state:
-            st.session_state.move_date = date(2000, 1, 1)
-        st.session_state.move_date = st.date_input("전입 예정일", value=st.session_state.move_date, help="실제 전입 예정일을 선택해주세요.")
+        st.session_state.move_date = st.date_input("전입 예정일", value=date(2025, 1, 1))
         school_name = st.text_input("전학 예정 학교", value=st.session_state.selected_school, disabled=True)
     with col2:
         parent_name = st.text_input("법정대리인 성명", value="000")
@@ -283,7 +279,7 @@ elif st.session_state.stage == 3:
         )
 
     if st.button("✒️다음 단계로"):
-        valid, error = validate_inputs(st.session_state.student_name, parent_name, student_phone, parent_phone, address, next_grade, st.session_state.move_date)
+        valid, error = validate_inputs(st.session_state.student_name, parent_name, student_phone, parent_phone, address, next_grade)
         if not valid:
             st.error(error)
             st.stop()
