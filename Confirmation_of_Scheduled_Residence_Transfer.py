@@ -124,14 +124,14 @@ def validate_inputs(student_name, parent_name, student_school, student_phone, pa
         return False, "성명은 예시 이름을 사용할 수 없습니다."
     if student_school == "학교 학년":
         return False, "현 소속 학교 및 학년을 올바르게 작성하세요."
-    if student_phone == "010-0000-0000":
+    if student_phone == "010-1234-1234":
         return False, "휴대전화 번호는 예시 번호를 사용할 수 없습니다."
-    if parent_phone == "010-0000-0000":
+    if parent_phone == "010-1234-1234":
         return False, "휴대전화 번호는 예시 번호를 사용할 수 없습니다."
     if address == "택지 A-블록 아파트":
         return False, "전입 예정 주소를 올바르게 작성하세요."
     if not re.match(r'^[1-6]학년$', next_grade):
-        return False, "전학 예정 학년은 '1~6학년' 형식만 허용됩니다."
+        return False, "전학 예정 학년은 '1~6학년'만 허용됩니다."
     return True, ""
 
 # 이메일 발송 함수
