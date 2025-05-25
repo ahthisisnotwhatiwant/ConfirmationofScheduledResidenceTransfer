@@ -120,13 +120,10 @@ def validate_inputs(student_name, parent_name, student_school, student_phone, pa
         return False, "성명은 한글 조합만 허용됩니다."
     if student_school == "학교 학년":
         return False, "현 소속 학교 및 학년을 올바르게 작성하세요."
-    phone_pattern = r'^\d{3}-\d{4}-\d{4}$'
-    if not (re.match(phone_pattern, student_phone) and re.match(phone_pattern, parent_phone)):
-        return False, "휴대전화 번호는 '010-0000-0000' 형식만 허용됩니다."
     if student_phone == "010-0000-0000":
-        return False, "휴대전화 번호는 예시 번호를 사용할 수 없습니다."
+        return False, "학생 휴대전화 번호는 예시 번호를 사용할 수 없습니다."
     if parent_phone == "010-0000-0000":
-        return False, "휴대전화 번호는 예시 번호를 사용할 수 없습니다."
+        return False, "법정대리인 휴대전화 번호는 예시 번호를 사용할 수 없습니다."
     if address == "택지 A-블록 아파트":
         return False, "전입 예정 주소를 올바르게 작성하세요."
     if not re.match(r'^[1-6]학년$', next_grade):
@@ -240,6 +237,17 @@ elif st.session_state.stage == 2:
     elif consent_choice == "동의하지 않습니다.":
         st.warning("개인정보 수집·이용에 동의 시에만 다음 단계로 진행할 수 있습니다.")
 
+# 전화번호 포맷팅 함수 추가
+def format_phone_number(phone_input):
+    # 숫자만 추출
+    digits = ''.join(filter(str.isdigit, phone_input))
+    # 11자리 숫자인지 확인
+    if len(digits) != 11 or not digits.startswith('010'):
+        return None, "전화번호는 010으로 시작하는 11자리 숫자여야 합니다."
+    # 010-XXXX-XXXX 형식으로 변환
+    formatted = f"{digits[:3]}-{digits[3:7]}-{digits[7:]}"
+    return formatted, None
+
 # 3단계: 전입예정확인서
 elif st.session_state.stage == 3:
     st.subheader("3단계: 전입예정확인서")
@@ -257,13 +265,43 @@ elif st.session_state.stage == 3:
     with col1:
         st.session_state.student_name = st.text_input("학생 성명", value="")
         student_school = st.text_input("현 소속 학교 및 학년", value="학교 학년")
-        student_phone = st.text_input("학생 휴대전화 번호", value="010--")
+        # 전화번호 입력 필드 수정: placeholder 사용
+        student_phone_input = st.text_input(
+            "학생 휴대전화 번호",
+            placeholder="010-0000-0000",
+            key="student_phone_input"
+        )
+        # 전화번호 포맷팅
+        if student_phone_input:
+            formatted_student_phone, error = format_phone_number(student_phone_input)
+            if error:
+                st.error(error)
+                student_phone = ""
+            else:
+                student_phone = formatted_student_phone
+        else:
+            student_phone = ""
         st.session_state.move_date = st.date_input("전입 예정일", value=None)
         school_name = st.text_input("전학 예정 학교", value=st.session_state.selected_school, disabled=True)
     with col2:
         parent_name = st.text_input("법정대리인 성명", value="")
         relationship = st.text_input("학생과의 관계", value="부, 모 등")
-        parent_phone = st.text_input("법정대리인 휴대전화 번호", value="010--")
+        # 전화번호 입력 필드 수정: placeholder 사용
+        parent_phone_input = st.text_input(
+            "법정대리인 휴대전화 번호",
+            placeholder="010-0000-0000",
+            key="parent_phone_input"
+        )
+        # 전화번호 포맷팅
+        if parent_phone_input:
+            formatted_parent_phone, error = format_phone_number(parent_phone_input)
+            if error:
+                st.error(error)
+                parent_phone = ""
+            else:
+                parent_phone = formatted_parent_phone
+        else:
+            parent_phone = ""
         address = st.text_input("전입 예정 주소", value="택지 A-블록 아파트")
         next_grade = st.text_input("전학 예정 학년", value="학년")
 
