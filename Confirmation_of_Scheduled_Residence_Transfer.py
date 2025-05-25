@@ -31,8 +31,17 @@ MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
 SMTP_SERVER = os.getenv("SMTP_SERVER")
 SMTP_PORT = int(os.getenv("SMTP_PORT"))
 
-# 페이지 설정 (session_timeout 제거)
-st.set_page_config(page_title="전입예정확인서", layout="centered")
+# 페이지 설정
+try:
+    favicon_image = Image.open("my_favicon.png")
+    st.set_page_config(
+        page_title="전입예정확인서",
+        page_icon=favicon_image,
+        layout="centered"
+    )
+except FileNotFoundError:
+    st.warning("파비콘 이미지 파일을 찾을 수 없습니다. 기본 아이콘이 사용됩니다.")
+    st.set_page_config(page_title="전입예정확인서", layout="centered")
 
 # 학년을 영어 형식으로 변환하는 함수
 def grade_to_english(grade):
