@@ -245,7 +245,7 @@ elif st.session_state.stage == 3:
         st.session_state.student_name = st.text_input("학생 성명", value="000")
         student_school = st.text_input("현 소속 학교 및 학년", value="00초등학교 0학년")
         student_phone = st.text_input("학생 휴대전화 번호", value="010-0000-0000")
-        st.session_state.move_date = st.date_input("전입 예정일", value=date(2025, 1, 1))
+        st.session_state.move_date = st.date_input("전입 예정일", value=date(2025, 01, 01))
         school_name = st.text_input("전학 예정 학교", value=st.session_state.selected_school, disabled=True)
     with col2:
         parent_name = st.text_input("법정대리인 성명", value="000")
