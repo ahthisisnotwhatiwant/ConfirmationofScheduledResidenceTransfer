@@ -95,7 +95,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # 사용자 안내
-st.markdown('<div class="instruction-message">🍀 진  행 순  서 🍀<br> ①지역 및 학교 → ②개인정보 수집·이용 동의서 → ③전입예정확인서 → ④미리보기 및 제출<br>⚠️ 안  내 ⚠️<br> 제출 내역이 오류로 판단될 시, 자료 활용에 제한될 수 있습니다</div>', unsafe_allow_html=True)
+st.markdown('<div class="instruction-message">🍀 진  행 순  서 🍀<br> ①지역 및 학교 → ②개인정보 수집·이용 동의서 → ③전입예정확인서 → ④미리보기 및 제출<br>⚠️ 안  내 ⚠️<br> 제출 정보가 오류로 판단될 시, 자료 활용에 제한될 수 있습니다.</div>', unsafe_allow_html=True)
 
 # Streamlit Session State 초기화
 if 'stage' not in st.session_state:
