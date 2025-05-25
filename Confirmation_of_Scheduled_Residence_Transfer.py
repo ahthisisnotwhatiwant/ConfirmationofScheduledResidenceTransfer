@@ -119,15 +119,15 @@ def validate_inputs(student_name, parent_name, student_school, student_phone, pa
     if not re.match(korean_pattern, parent_name):
         return False, "성명은 한글 조합만 허용됩니다."
     if student_name == "홍길동":
-        return False, "학생 성명은 예시 이름 '홍길동'을 사용할 수 없습니다."
+        return False, "성명은 예시 이름을 사용할 수 없습니다."
     if parent_name == "홍길동":
-        return False, "법정대리인 성명은 예시 이름 '홍길동'을 사용할 수 없습니다."
+        return False, "성명은 예시 이름을 사용할 수 없습니다."
     if student_school == "학교 학년":
         return False, "현 소속 학교 및 학년을 올바르게 작성하세요."
     if student_phone == "010-0000-0000":
-        return False, "학생 휴대전화 번호는 예시 번호를 사용할 수 없습니다."
+        return False, "휴대전화 번호는 예시 번호를 사용할 수 없습니다."
     if parent_phone == "010-0000-0000":
-        return False, "법정대리인 휴대전화 번호는 예시 번호를 사용할 수 없습니다."
+        return False, "휴대전화 번호는 예시 번호를 사용할 수 없습니다."
     if address == "택지 A-블록 아파트":
         return False, "전입 예정 주소를 올바르게 작성하세요."
     if not re.match(r'^[1-6]학년$', next_grade):
