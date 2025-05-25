@@ -51,60 +51,39 @@ def convert_pdf_to_images(pdf_path, dpi=150):
         return None
 
 # 기존 CSS 유지
-<style>
-.title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #4c51bf;
-    text-align: center;
-    padding-bottom: 1rem;
-    margin-bottom: 2rem;
-    background: linear-gradient(to right, #f0f2ff, #ffffff);
-    -webkit-background-clip: text;
-    color: transparent;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-}
-.pdf-viewer {
-    width: 100%;
-    height: 500px;
-    border: 1px solid #d1d5db;
-    margin-bottom: 2rem;
-}
-.instruction-message {
-    background-color: #f0fdf4;
-    color: #15803d;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border-radius: 0.375rem;
-    border: 1px solid #bbf7d0;
-    font-size: 0.875rem;
-    text-align: center;
-}
-
-/* 반응형 디자인을 위한 미디어 쿼리 */
-@media (max-width: 768px) {
+st.markdown("""
+    <style>
     .title {
-        font-size: 1.8rem; /* 모바일에서 제목 크기 축소 */
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #4c51bf;
+        text-align: center;
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
+        background: linear-gradient(to right, #f0f2ff, #ffffff);
+        -webkit-background-clip: text;
+        color: transparent;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
     }
     .pdf-viewer {
-        height: 300px; /* PDF 미리보기 높이 축소 */
+        width: 100%;
+        height: 500px;
+        border: 1px solid #d1d5db;
+        margin-bottom: 2rem;
     }
-    .stTextInput > div > input {
-        width: 100% !important; /* 입력 필드 너비 100% */
-        font-size: 0.9rem; /* 글꼴 크기 조정 */
+    .instruction-message {
+        background-color: #f0fdf4;
+        color: #15803d;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+        border-radius: 0.375rem;
+        border: 1px solid #bbf7d0;
+        font-size: 0.875rem;
+        text-align: center;
     }
-    .stCanvas {
-        width: 100% !important; /* 캔버스 너비 100% */
-        height: 100px !important; /* 캔버스 높이 축소 */
-    }
-    /* Streamlit의 컬럼을 수직으로 배치 */
-    div[data-testid="column"] {
-        flex-direction: column !important;
-        width: 100% !important;
-    }
-}
-</style>
-<h1 class="title">전입예정확인서</h1>
+    </style>
+    <h1 class="title">전입예정확인서</h1>
+""", unsafe_allow_html=True)
 
 # 사용자 안내
 st.markdown('<div class="instruction-message">🍀 진  행 순  서 🍀<br> ①지역 및 학교 → ②개인정보 수집·이용 동의서 → ③전입예정확인서 → ④미리보기 및 제출</div>', unsafe_allow_html=True)
@@ -496,4 +475,3 @@ elif st.session_state.stage == 4:
     else:
         st.error("PDF가 생성되지 않았습니다. 3단계로 돌아가 PDF를 생성해 주세요.")
         clear_session_state()
-    
