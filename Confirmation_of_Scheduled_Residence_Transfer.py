@@ -179,6 +179,17 @@ def clear_session_state():
         if key not in keys_to_keep:
             del st.session_state[key]
 
+# 전화번호 포맷팅 함수
+def format_phone_number(phone_input):
+    # 숫자만 추출
+    digits = ''.join(filter(str.isdigit, phone_input))
+    # 11자리 숫자인지 확인
+    if len(digits) != 11 or not digits.startswith('010'):
+        return None, "전화번호는 010으로 시작하는 11자리 숫자여야 합니다."
+    # 010-XXXX-XXXX 형식으로 변환
+    formatted = f"{digits[:3]}-{digits[3:7]}-{digits[7:]}"
+    return formatted, None
+
 # 1단계: 지역 및 학교 선택
 if st.session_state.stage == 1:
     st.subheader("1단계: 지역 및 학교")
@@ -227,7 +238,7 @@ elif st.session_state.stage == 2:
     consent_choice = st.radio(
         "☞ 위와 같이 개인정보 수집·이용에 동의하십니까?",
         options=["동의합니다.", "동의하지 않습니다."],
-        index=None,  # 기본적으로 아무것도 선택되지 않음
+        index=None,
         key="consent_radio"
     )
     if consent_choice == "동의합니다.":
@@ -236,17 +247,6 @@ elif st.session_state.stage == 2:
             st.rerun()
     elif consent_choice == "동의하지 않습니다.":
         st.warning("개인정보 수집·이용에 동의 시에만 다음 단계로 진행할 수 있습니다.")
-
-# 전화번호 포맷팅 함수 추가
-def format_phone_number(phone_input):
-    # 숫자만 추출
-    digits = ''.join(filter(str.isdigit, phone_input))
-    # 11자리 숫자인지 확인
-    if len(digits) != 11 or not digits.startswith('010'):
-        return None, "전화번호는 010으로 시작하는 11자리 숫자여야 합니다."
-    # 010-XXXX-XXXX 형식으로 변환
-    formatted = f"{digits[:3]}-{digits[3:7]}-{digits[7:]}"
-    return formatted, None
 
 # 3단계: 전입예정확인서
 elif st.session_state.stage == 3:
@@ -265,13 +265,11 @@ elif st.session_state.stage == 3:
     with col1:
         st.session_state.student_name = st.text_input("학생 성명", value="")
         student_school = st.text_input("현 소속 학교 및 학년", value="학교 학년")
-        # 전화번호 입력 필드 수정: placeholder 사용
         student_phone_input = st.text_input(
             "학생 휴대전화 번호",
             placeholder="010-0000-0000",
             key="student_phone_input"
         )
-        # 전화번호 포맷팅
         if student_phone_input:
             formatted_student_phone, error = format_phone_number(student_phone_input)
             if error:
@@ -286,13 +284,11 @@ elif st.session_state.stage == 3:
     with col2:
         parent_name = st.text_input("법정대리인 성명", value="")
         relationship = st.text_input("학생과의 관계", value="부, 모 등")
-        # 전화번호 입력 필드 수정: placeholder 사용
         parent_phone_input = st.text_input(
             "법정대리인 휴대전화 번호",
             placeholder="010-0000-0000",
             key="parent_phone_input"
         )
-        # 전화번호 포맷팅
         if parent_phone_input:
             formatted_parent_phone, error = format_phone_number(parent_phone_input)
             if error:
