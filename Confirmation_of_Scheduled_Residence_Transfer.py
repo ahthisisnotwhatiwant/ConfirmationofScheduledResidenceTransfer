@@ -269,13 +269,13 @@ elif st.session_state.stage == 3:
     with col1:
         st.session_state.student_name = st.text_input(
             "학생 성명",
-            placeholder="학생 성명 작성",
+            placeholder="학생 성명 작성 / 예)홍길동",
             key="student_name_input"
         )
         student_school = st.text_input("현 소속 학교 및 학년", value="학교 학년")
         student_phone_input = st.text_input(
             "학생 휴대전화 번호",
-            placeholder="숫자만 작성/예)01012341234",
+            placeholder="숫자만 작성 / 예)01012341234",
             key="student_phone_input"
         )
         if student_phone_input:
@@ -289,14 +289,14 @@ elif st.session_state.stage == 3:
             student_phone = ""
         parent_name = st.text_input(
             "법정대리인 성명",
-            placeholder="법정대리인 성명 작성",
+            placeholder="법정대리인 성명 작성 / 예)홍길동",
             key="parent_name_input"
         )
         relationship = st.text_input("학생과의 관계", value="부, 모 등")
     with col2:
         parent_phone_input = st.text_input(
             "법정대리인 휴대전화 번호",
-            placeholder="숫자만 작성/예)01056785678",
+            placeholder="숫자만 작성 / 예)01056785678",
             key="parent_phone_input"
         )
         if parent_phone_input:
