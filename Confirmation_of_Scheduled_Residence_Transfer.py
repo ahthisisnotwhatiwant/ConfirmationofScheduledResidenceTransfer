@@ -118,10 +118,6 @@ def validate_inputs(student_name, parent_name, student_school, student_phone, pa
         return False, "성명은 한글 조합만 허용됩니다."
     if not re.match(korean_pattern, parent_name):
         return False, "성명은 한글 조합만 허용됩니다."
-    if student_name == "홍길동":
-        return False, "성명은 예시 이름을 사용할 수 없습니다."
-    if parent_name == "홍길동":
-        return False, "성명은 예시 이름을 사용할 수 없습니다."
     if student_school == "학교 학년":
         return False, "현 소속 학교 및 학년을 올바르게 작성하세요."
     if student_phone == "010-0000-0000":
@@ -269,7 +265,7 @@ elif st.session_state.stage == 3:
     with col1:
         st.session_state.student_name = st.text_input(
             "학생 성명",
-            placeholder="학생 성명 작성 / 예)홍길동",
+            placeholder="학생 성명 작성 / 예)한잎새",
             key="student_name_input"
         )
         student_school = st.text_input("현 소속 학교 및 학년", value="학교 학년")
@@ -289,7 +285,7 @@ elif st.session_state.stage == 3:
             student_phone = ""
         parent_name = st.text_input(
             "법정대리인 성명",
-            placeholder="법정대리인 성명 작성 / 예)홍길동",
+            placeholder="법정대리인 성명 작성 / 예)한나무",
             key="parent_name_input"
         )
         relationship = st.text_input("학생과의 관계", value="부, 모 등")
