@@ -368,11 +368,11 @@ elif st.session_state.stage == 3:
 
             consent_positions = {
                 "{{date.today}}": [(1100, 1550)],
-                "{{student_name}}": [(825, 1700)],
+                "{{student_name}}": [(825, 1695)],
                 "{{student_sign_path}}": [(1060, 1665)],
-                "{{parent_name}}": [(825, 1820)],
-                "{{parent_sign_path}}": [(1060, 1790)],
-                "{{school_name}}": [(935, 1990)],
+                "{{parent_name}}": [(825, 1835)],
+                "{{parent_sign_path}}": [(1060, 1810)],
+                "{{school_name}}": [(930, 1990)],
             }
             transfer_positions = {
                 "{{student_name}}": [(480, 457), (805, 1760)],
