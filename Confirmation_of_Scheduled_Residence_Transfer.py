@@ -275,7 +275,7 @@ elif st.session_state.stage == 3:
         student_school = st.text_input("현 소속 학교 및 학년", value="학교 학년")
         student_phone_input = st.text_input(
             "학생 휴대전화 번호",
-            placeholder="숫자만 작성, 01012341234",
+            placeholder="숫자만 작성/예)01012341234",
             key="student_phone_input"
         )
         if student_phone_input:
@@ -296,7 +296,7 @@ elif st.session_state.stage == 3:
     with col2:
         parent_phone_input = st.text_input(
             "법정대리인 휴대전화 번호",
-            placeholder="숫자만 작성, 01012341234",
+            placeholder="숫자만 작성/예)01056785678",
             key="parent_phone_input"
         )
         if parent_phone_input:
