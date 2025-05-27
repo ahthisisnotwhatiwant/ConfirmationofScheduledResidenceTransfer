@@ -367,12 +367,12 @@ elif st.session_state.stage == 3:
             draw2 = ImageDraw.Draw(page2)
 
             consent_positions = {
-                "{{date.today}}": [(1200, 1540)],
+                "{{date.today}}": [(1000, 1550)],
                 "{{student_name}}": [(825, 1695)],
                 "{{student_sign_path}}": [(1060, 1695)],
                 "{{parent_name}}": [(825, 1820)],
                 "{{parent_sign_path}}": [(1060, 1820)],
-                "{{school_name}}": [(945, 1985)],
+                "{{school_name}}": [(940, 1990)],
             }
             transfer_positions = {
                 "{{student_name}}": [(480, 457), (805, 1760)],
