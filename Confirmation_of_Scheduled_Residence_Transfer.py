@@ -124,7 +124,7 @@ def validate_inputs(student_name, parent_name, student_school, student_phone, pa
         return False, "휴대전화 번호는 예시 번호를 사용할 수 없습니다."
     if parent_phone == "010-0000-0000":
         return False, "휴대전화 번호는 예시 번호를 사용할 수 없습니다."
-    if address == "택지 A-블록 아파트":
+    if address == "택지 A-0블록 아파트":
         return False, "전입 예정 주소를 올바르게 작성하세요."
     if not re.match(r'^[1-6]학년$', next_grade):
         return False, "전학 예정 학년은 '1~6학년'만 허용됩니다."
@@ -305,7 +305,7 @@ elif st.session_state.stage == 3:
         else:
             parent_phone = ""
         st.session_state.move_date = st.date_input("전입 예정일", value=None)
-        address = st.text_input("전입 예정 주소", value="택지 A-블록 아파트")
+        address = st.text_input("전입 예정 주소", value="택지 A-0블록 아파트")
         school_name = st.text_input("전학 예정 학교", value=st.session_state.selected_school, disabled=True)
         next_grade = st.text_input("전학 예정 학년", value="학년")
 
