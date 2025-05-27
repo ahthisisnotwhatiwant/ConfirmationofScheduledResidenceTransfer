@@ -375,19 +375,19 @@ elif st.session_state.stage == 3:
                 "{{school_name}}": [(930, 1990)],
             }
             transfer_positions = {
-                "{{student_name}}": [(480, 457), (805, 1760)],
-                "{{parent_name}}": [(1140, 457), (805, 1885)],
+                "{{student_name}}": [(480, 457), (825, 1750)],
+                "{{parent_name}}": [(1140, 457), (825, 1865)],
                 "{{student_school}}": [(440, 555)],
                 "{{relationship}}": [(1140, 555)],
                 "{{student_phone}}": [(462, 650)],
                 "{{parent_phone}}": [(1105, 650)],
                 "{{move_date}}": [(462, 847)],
                 "{{address}}": [(1140, 830), (520, 1182)],
-                "{{school_name}}": [(462, 1048), (320, 1240), (937, 2057)],
+                "{{school_name}}": [(462, 1048), (320, 1240), (930, 2030)],
                 "{{next_grade}}": [(1115, 1048), (920, 1240)],
-                "{{date.today}}": [(1000, 1620)],
-                "{{student_sign_path}}": [(1060, 1760)],
-                "{{parent_sign_path}}": [(1060, 1885)],
+                "{{date.today}}": [(1100, 1620)],
+                "{{student_sign_path}}": [(1060, 1700)],
+                "{{parent_sign_path}}": [(1060, 1845)],
             }
 
             def get_font(key, idx):
