@@ -375,16 +375,16 @@ elif st.session_state.stage == 3:
                 "{{school_name}}": [(930, 1990)],
             }
             transfer_positions = {
-                "{{student_name}}": [(462, 430), (825, 1750)],
+                "{{student_name}}": [(462, 428), (825, 1750)],
                 "{{parent_name}}": [(1125, 440), (825, 1875)],
                 "{{student_school}}": [(440, 602)],
                 "{{relationship}}": [(1125, 555)],
                 "{{student_phone}}": [(462, 685)],
                 "{{parent_phone}}": [(1125, 670)],
                 "{{move_date}}": [(462, 880)],
-                "{{address}}": [(1125, 867), (580, 1210)],
-                "{{school_name}}": [(462, 1080), (315, 1270), (930, 2040)],
-                "{{next_grade}}": [(1125, 1080), (850, 1270)],
+                "{{address}}": [(1125, 864), (550, 1210)],
+                "{{school_name}}": [(462, 1080), (325, 1270), (930, 2040)],
+                "{{next_grade}}": [(1125, 1080), (840, 1270)],
                 "{{date.today}}": [(1100, 1620)],
                 "{{student_sign_path}}": [(1060, 1730)],
                 "{{parent_sign_path}}": [(1060, 1865)],
@@ -392,7 +392,7 @@ elif st.session_state.stage == 3:
 
             def get_font(key, idx):
                 if key == "{{address}}" and idx == 0:
-                    return ImageFont.truetype(FONT_PATH, 36)
+                    return ImageFont.truetype(FONT_PATH, 30)
                 if key == "{{address}}" and idx == 1:
                     return ImageFont.truetype(FONT_PATH, 38)
                 return ImageFont.truetype(FONT_PATH, 42)
