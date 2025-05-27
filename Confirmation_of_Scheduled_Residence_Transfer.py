@@ -382,7 +382,7 @@ elif st.session_state.stage == 3:
                 "{{student_phone}}": [(462, 685)],
                 "{{parent_phone}}": [(1110, 670)],
                 "{{move_date}}": [(462, 880)],
-                "{{address}}": [(1110, 864), (525, 1210)],
+                "{{address}}": [(1110, 864), (515, 1210)],
                 "{{school_name}}": [(462, 1080), (325, 1270), (930, 2040)],
                 "{{next_grade}}": [(1110, 1080), (840, 1270)],
                 "{{date.today}}": [(1100, 1620)],
@@ -392,9 +392,9 @@ elif st.session_state.stage == 3:
 
             def get_font(key, idx):
                 if key == "{{address}}" and idx == 0:
-                    return ImageFont.truetype(FONT_PATH, 30)
+                    return ImageFont.truetype(FONT_PATH, 33)
                 if key == "{{address}}" and idx == 1:
-                    return ImageFont.truetype(FONT_PATH, 39)
+                    return ImageFont.truetype(FONT_PATH, 40)
                 return ImageFont.truetype(FONT_PATH, 42)
 
             consent_map = {
