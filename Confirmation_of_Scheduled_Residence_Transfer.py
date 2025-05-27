@@ -383,11 +383,11 @@ elif st.session_state.stage == 3:
                 "{{parent_phone}}": [(1105, 650)],
                 "{{move_date}}": [(462, 847)],
                 "{{address}}": [(1140, 830), (520, 1182)],
-                "{{school_name}}": [(462, 1048), (320, 1240), (930, 2030)],
-                "{{next_grade}}": [(1115, 1048), (920, 1240)],
+                "{{school_name}}": [(462, 1048), (300, 1270), (930, 2040)],
+                "{{next_grade}}": [(1115, 1048), (890, 1270)],
                 "{{date.today}}": [(1100, 1620)],
-                "{{student_sign_path}}": [(1060, 1700)],
-                "{{parent_sign_path}}": [(1060, 1845)],
+                "{{student_sign_path}}": [(1060, 1720)],
+                "{{parent_sign_path}}": [(1060, 1865)],
             }
 
             def get_font(key, idx):
