@@ -367,16 +367,16 @@ elif st.session_state.stage == 3:
             draw2 = ImageDraw.Draw(page2)
 
             consent_positions = {
-                "{{date.today}}": [(975, 1540)],
-                "{{student_name}}": [(815, 1685)],
-                "{{student_sign_path}}": [(1050, 1655)],
-                "{{parent_name}}": [(815, 1810)],
-                "{{parent_sign_path}}": [(1050, 1800)],
-                "{{school_name}}": [(937, 1982)],
+                "{{date.today}}": [(1000, 1540)],
+                "{{student_name}}": [(825, 1685)],
+                "{{student_sign_path}}": [(1060, 1685)],
+                "{{parent_name}}": [(825, 1810)],
+                "{{parent_sign_path}}": [(1060, 1810)],
+                "{{school_name}}": [(945, 1977)],
             }
             transfer_positions = {
-                "{{student_name}}": [(480, 457), (815, 1760)],
-                "{{parent_name}}": [(1140, 457), (815, 1885)],
+                "{{student_name}}": [(480, 457), (805, 1760)],
+                "{{parent_name}}": [(1140, 457), (805, 1885)],
                 "{{student_school}}": [(440, 555)],
                 "{{relationship}}": [(1140, 555)],
                 "{{student_phone}}": [(462, 650)],
@@ -385,9 +385,9 @@ elif st.session_state.stage == 3:
                 "{{address}}": [(1140, 830), (520, 1182)],
                 "{{school_name}}": [(462, 1048), (320, 1240), (937, 2057)],
                 "{{next_grade}}": [(1115, 1048), (920, 1240)],
-                "{{date.today}}": [(975, 1610)],
-                "{{student_sign_path}}": [(1050, 1730)],
-                "{{parent_sign_path}}": [(1050, 1870)],
+                "{{date.today}}": [(1000, 1620)],
+                "{{student_sign_path}}": [(1060, 1760)],
+                "{{parent_sign_path}}": [(1060, 1885)],
             }
 
             def get_font(key, idx):
