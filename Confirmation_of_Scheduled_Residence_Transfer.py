@@ -113,7 +113,7 @@ if 'stage' not in st.session_state:
 # 입력 검증 함수
 def validate_inputs(student_name, parent_name, student_school, student_birth_date, parent_phone, address, next_grade, move_date):
     if not all([student_name, parent_name, student_school, student_birth_date, parent_phone, address, next_grade, move_date]):
-        return False, "모든 칸을 올바르게 작성하세요."
+        return False, "모든 작성칸을 올바르게 작성하세요."
     korean_pattern = r'^[가-힣]+$'
     if not re.match(korean_pattern, student_name):
         return False, "성명은 한글 조합만 허용됩니다."
