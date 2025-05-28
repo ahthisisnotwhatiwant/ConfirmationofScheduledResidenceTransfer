@@ -324,7 +324,7 @@ elif st.session_state.stage == 3:
         )
 
     if st.button("✒️다음 단계로"):
-        valid, error = validate_inputs(st.session_state.student_name, parent_name, student_school, student_phone, parent_phone, address, next_grade, st.session_state.move_date)
+        valid, error = validate_inputs(st.session_state.student_name, parent_name, student_school, st.session_state.student_birth_date, parent_phone, address, next_grade, st.session_state.move_date)
         if not valid:
             st.error(error)
             st.stop()
@@ -369,7 +369,7 @@ elif st.session_state.stage == 3:
                 "{{parent_name}}": [(1110, 420), (825, 1888)],
                 "{{student_school}}": [(440, 620)],
                 "{{relationship}}": [(1110, 520)],
-                "{{student_phone}}": [(462, 520)],
+                "{{student_birth_date}}": [(462, 520)],
                 "{{parent_phone}}": [(1110, 620)],
                 "{{move_date}}": [(462, 835)],
                 "{{address}}": [(1110, 821), (500, 1188)],
