@@ -264,14 +264,14 @@ elif st.session_state.stage == 3:
     with col1:
         st.session_state.student_name = st.text_input(
             "(학생) 성명",
-            placeholder="한글로만 작성 / 예)한잎새",
+            placeholder="예)한잎새",
             key="student_name_input"
         )
         st.session_state.student_birth_date = st.date_input(
             "(학생) 생년월일",
             value=None,
             key="student_birth_date_input"
-       )
+        )
         student_school = st.text_input(
             "(학생) 현 소속 학교 및 학년",
             placeholder="예)00초등학교, 00중학교, 00고등학교 1학년",
@@ -283,7 +283,7 @@ elif st.session_state.stage == 3:
             student_school = ""
         parent_name = st.text_input(
             "(법정대리인) 성명",
-            placeholder="한글로만 작성 / 예)한나무",
+            placeholder="예)한나무",
             key="parent_name_input"
         )
         relationship = st.text_input(
