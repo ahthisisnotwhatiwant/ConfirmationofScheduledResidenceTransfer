@@ -271,7 +271,7 @@ elif st.session_state.stage == 3:
             key="student_school_input"
         )
         if student_school and (not re.match(r'^[가-힣0-9\s]+$', student_school) or re.match(r'^\d+$', student_school)):
-            st.error("한글 조합과 숫자로만 작성하세요. 숫자만 입력할 수 없습니다.")
+            st.error("한글 조합과 숫자로만 작성하세요.")
             student_school = ""
         parent_name = st.text_input(
             "(법정대리인) 성명",
@@ -311,7 +311,7 @@ elif st.session_state.stage == 3:
             key="address_input"
         )
         if address and (not re.match(r'^[가-힣0-9\s-]+$', address) or re.match(r'^\d+$', address)):
-            st.error("한글 조합과 숫자로만 작성하세요. 숫자만 입력할 수 없습니다.")
+            st.error("한글 조합과 숫자로만 작성하세요.")
             address = ""
         school_name = st.text_input("전학 예정 학교", value=st.session_state.selected_school, disabled=True)
         next_grade = st.text_input(
