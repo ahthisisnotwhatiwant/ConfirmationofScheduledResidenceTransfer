@@ -274,7 +274,7 @@ elif st.session_state.stage == 3:
        )
         student_school = st.text_input(
             "(학생) 현 소속 학교 및 학년",
-            placeholder="예)초등, 중, 고등학교 학년",
+            placeholder="예)00초등학교, 00중학교, 00고등학교 1학년",
             key="student_school_input",
             on_change=lambda: st.session_state.student_school_input if st.session_state.student_school_input else None
         )
