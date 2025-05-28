@@ -271,7 +271,7 @@ elif st.session_state.stage == 3:
             key="student_school_input"
         )
         if student_school and (not re.match(r'^[가-힣0-9\s]+$', student_school) or re.match(r'^\d+$', student_school)):
-            st.error("한글 조합과 숫자로만 작성하세요.")
+            st.error("한글 조합과 숫자로만 작성하세요. 숫자만 입력할 수 없습니다.")
             student_school = ""
         parent_name = st.text_input(
             "(법정대리인) 성명",
@@ -290,11 +290,11 @@ elif st.session_state.stage == 3:
             st.error("한글 조합만 입력 가능합니다.")
             relationship = ""
     with col2:
+        st.markdown('<div class="instruction-message">모바일 사용자는 숫자 키패드로 입력하세요.</div>', unsafe_allow_html=True)
         parent_phone_input = st.text_input(
             "(법정대리인) 휴대전화 번호",
             placeholder="숫자로만 작성 / 예)01056785678",
-            key="parent_phone_input",
-            type="number"
+            key="parent_phone_input"
         )
         if parent_phone_input:
             formatted_parent_phone, error = format_phone_number(parent_phone_input)
@@ -312,14 +312,14 @@ elif st.session_state.stage == 3:
             key="address_input"
         )
         if address and (not re.match(r'^[가-힣0-9\s-]+$', address) or re.match(r'^\d+$', address)):
-            st.error("한글 조합과 숫자로만 작성하세요.")
+            st.error("한글 조합과 숫자로만 작성하세요. 숫자만 입력할 수 없습니다.")
             address = ""
         school_name = st.text_input("전학 예정 학교", value=st.session_state.selected_school, disabled=True)
+        st.markdown('<div class="instruction-message">모바일 사용자는 숫자 키패드로 입력하세요. (1~6)</div>', unsafe_allow_html=True)
         next_grade = st.text_input(
             "전학 예정 학년",
             placeholder="예)2학년",
-            key="next_grade_input",
-            type="number"
+            key="next_grade_input"
         )
         if next_grade and not re.match(r'^[1-6](학년)?$', next_grade):
             st.error("한글 조합과 1~6 사이 숫자로만 작성하세요.")
