@@ -106,12 +106,13 @@ if 'stage' not in st.session_state:
     st.session_state.selected_school = ""
     st.session_state.student_name = ""
     st.session_state.move_date = None
+    st.session_state.student_birth_date = None
     st.session_state.pdf_bytes = None
     st.session_state.filename = None
 
 # 입력 검증 함수
-def validate_inputs(student_name, parent_name, student_school, student_phone, parent_phone, address, next_grade, move_date):
-    if not all([student_name, parent_name, student_school, student_phone, parent_phone, address, next_grade, move_date]):
+def validate_inputs(student_name, parent_name, student_school, student_birth_date, parent_phone, address, next_grade, move_date):
+    if not all([student_name, parent_name, student_school, student_birth_date, parent_phone, address, next_grade, move_date]):
         return False, "모든 칸을 올바르게 작성하세요."
     korean_pattern = r'^[가-힣]+$'
     if not re.match(korean_pattern, student_name):
@@ -120,8 +121,6 @@ def validate_inputs(student_name, parent_name, student_school, student_phone, pa
         return False, "성명은 한글 조합만 허용됩니다."
     if student_school == "학교 학년":
         return False, "현 소속 학교 및 학년을 올바르게 작성하세요."
-    if student_phone == "010-0000-0000":
-        return False, "휴대전화 번호는 예시 번호를 사용할 수 없습니다."
     if parent_phone == "010-0000-0000":
         return False, "휴대전화 번호는 예시 번호를 사용할 수 없습니다."
     if address == "택지 A-0블록 아파트":
@@ -268,21 +267,12 @@ elif st.session_state.stage == 3:
             placeholder="한글로만 작성 / 예)한잎새",
             key="student_name_input"
         )
-        student_school = st.text_input("현 소속 학교 및 학년", value="학교 학년")
-        student_phone_input = st.text_input(
-            "학생 휴대전화 번호",
-            placeholder="숫자로만 작성 / 예)01012341234",
-            key="student_phone_input"
+        st.session_state.student_birth_date = st.date_input(
+            "학생 생년월일",
+            value=None,
+            key="student_birth_date_input"
         )
-        if student_phone_input:
-            formatted_student_phone, error = format_phone_number(student_phone_input)
-            if error:
-                st.error(error)
-                student_phone = ""
-            else:
-                student_phone = formatted_student_phone
-        else:
-            student_phone = ""
+        student_school = st.text_input("현 소속 학교 및 학년", value="학교 학년")
         parent_name = st.text_input(
             "법정대리인 성명",
             placeholder="한글로만 작성 / 예)한나무",
@@ -407,7 +397,7 @@ elif st.session_state.stage == 3:
                 **consent_map,
                 "{{student_school}}": student_school,
                 "{{relationship}}": relationship,
-                "{{student_phone}}": student_phone,
+                "{{student_birth_date}}": st.session_state.student_birth_date.strftime("%Y년 %m월 %d일"),
                 "{{parent_phone}}": parent_phone,
                 "{{move_date}}": st.session_state.move_date.strftime("%Y년 %m월 %d일"),
                 "{{address}}": address,
