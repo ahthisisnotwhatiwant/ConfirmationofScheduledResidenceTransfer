@@ -270,7 +270,7 @@ elif st.session_state.stage == 3:
             placeholder="예)00초등학교, 00중학교, 00고등학교 1학년",
             key="student_school_input"
         )
-        if student_school and not re.match(r'^[가-힣0-9\s]+$', student_school):
+        if student_school and (not re.match(r'^[가-힣0-9\s]+$', student_school) or re.match(r'^\d+$', student_school)):
             st.error("한글 조합과 숫자로만 작성하세요.")
             student_school = ""
         parent_name = st.text_input(
@@ -293,7 +293,8 @@ elif st.session_state.stage == 3:
         parent_phone_input = st.text_input(
             "(법정대리인) 휴대전화 번호",
             placeholder="숫자로만 작성 / 예)01056785678",
-            key="parent_phone_input"
+            key="parent_phone_input",
+            type="number"
         )
         if parent_phone_input:
             formatted_parent_phone, error = format_phone_number(parent_phone_input)
@@ -310,18 +311,22 @@ elif st.session_state.stage == 3:
             placeholder="예)행복택지 A-1블록 사랑아파트",
             key="address_input"
         )
-        if address and not re.match(r'^[가-힣0-9\s-]+$', address):
+        if address and (not re.match(r'^[가-힣0-9\s-]+$', address) or re.match(r'^\d+$', address)):
             st.error("한글 조합과 숫자로만 작성하세요.")
             address = ""
         school_name = st.text_input("전학 예정 학교", value=st.session_state.selected_school, disabled=True)
         next_grade = st.text_input(
             "전학 예정 학년",
             placeholder="예)2학년",
-            key="next_grade_input"
+            key="next_grade_input",
+            type="number"
         )
-        if next_grade and not re.match(r'^[1-6]학년$', next_grade):
+        if next_grade and not re.match(r'^[1-6](학년)?$', next_grade):
             st.error("한글 조합과 1~6 사이 숫자로만 작성하세요.")
             next_grade = ""
+        # PDF 출력 시 '숫자+학년' 형태로 변환
+        if next_grade and re.match(r'^[1-6]$', next_grade):
+            next_grade = f"{next_grade}학년"
 
     col1, col2 = st.columns(2)
     with col1:
