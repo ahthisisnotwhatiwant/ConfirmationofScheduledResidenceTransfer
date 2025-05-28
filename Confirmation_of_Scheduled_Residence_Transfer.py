@@ -255,7 +255,7 @@ elif st.session_state.stage == 3:
             key="student_name_input"
         )
         if student_name and not re.match(r'^[가-힣]+$', student_name):
-            st.error("한글 조합으로만 작성하세요.")
+            st.error("한글로만 작성하세요.")
             st.session_state.student_name = ""
         else:
             st.session_state.student_name = student_name
@@ -279,7 +279,7 @@ elif st.session_state.stage == 3:
             key="parent_name_input"
         )
         if parent_name and not re.match(r'^[가-힣]+$', parent_name):
-            st.error("한글 조합으로만 작성하세요.")
+            st.error("한글로만 작성하세요.")
             parent_name = ""
         relationship = st.text_input(
             "(법정대리인) 학생과의 관계",
@@ -287,7 +287,7 @@ elif st.session_state.stage == 3:
             key="relationship_input"
         )
         if relationship and not re.match(r'^[가-힣\s]+$', relationship):
-            st.error("한글 조합으로만 작성하세요.")
+            st.error("한글로만 작성하세요.")
             relationship = ""
     with col2:
         parent_phone_input = st.text_input(
@@ -311,16 +311,16 @@ elif st.session_state.stage == 3:
             key="address_input"
         )
         if address and not re.match(r'^[가-힣a-zA-Z\s-]+$', address):
-            st.error("한글 조합, 기호, 알파벳으로만 작성하세요.")
+            st.error("한글, 기호, 알파벳으로만 작성하세요.")
             address = ""
         school_name = st.text_input("전학 예정 학교", value=st.session_state.selected_school, disabled=True)
         next_grade = st.text_input(
             "전학 예정 학년",
-            placeholder="예)2학년",
+            placeholder="예)2",
             key="next_grade_input"
         )
-        if next_grade and not re.match(r'^[1-6](학년)?$', next_grade):
-            st.error("한글 조합과 1~6 사이 숫자로만 작성하세요.")
+        if next_grade and not re.match(r'^[1-6]$', next_grade):
+            st.error("1~6 사이 숫자만 작성하세요.")
             next_grade = ""
         # PDF 출력 시 '숫자+학년' 형태로 변환
         if next_grade and re.match(r'^[1-6]$', next_grade):
