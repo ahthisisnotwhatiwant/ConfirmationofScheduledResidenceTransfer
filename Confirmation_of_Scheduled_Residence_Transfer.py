@@ -310,8 +310,8 @@ elif st.session_state.stage == 3:
             placeholder="예)행복택지 A-1블록 사랑아파트",
             key="address_input"
         )
-        if address and (not re.match(r'^[가-힣0-9\s-]+$', address) or re.match(r'^\d+$', address)):
-            st.error("한글 조합과 숫자로만 작성하세요.")
+        if address and not re.match(r'^[가-힣a-zA-Z\s-]+$', address):
+            st.error("한글 조합, 기호, 알파벳으로만 작성하세요.")
             address = ""
         school_name = st.text_input("전학 예정 학교", value=st.session_state.selected_school, disabled=True)
         next_grade = st.text_input(
