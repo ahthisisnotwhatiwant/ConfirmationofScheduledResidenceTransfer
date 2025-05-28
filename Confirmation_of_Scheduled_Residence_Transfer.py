@@ -262,11 +262,17 @@ elif st.session_state.stage == 3:
 
     col1, col2 = st.columns(2)
     with col1:
-        st.session_state.student_name = st.text_input(
+        student_name = st.text_input(
             "(학생) 성명",
             placeholder="예)한잎새",
             key="student_name_input"
         )
+        if student_name and not re.match(r'^[가-힣]+$', student_name):
+            st.error("한글 조합으로만 작성하세요.")
+            st.session_state.student_name = ""
+        else:
+            st.session_state.student_name = student_name
+
         st.session_state.student_birth_date = st.date_input(
             "(학생) 생년월일",
             value=None,
@@ -275,8 +281,7 @@ elif st.session_state.stage == 3:
         student_school = st.text_input(
             "(학생) 현 소속 학교 및 학년",
             placeholder="예)00초등학교, 00중학교, 00고등학교 1학년",
-            key="student_school_input",
-            on_change=lambda: st.session_state.student_school_input if st.session_state.student_school_input else None
+            key="student_school_input"
         )
         if student_school and not re.match(r'^[가-힣0-9\s]+$', student_school):
             st.error("한글 조합과 숫자만 입력 가능합니다.")
@@ -286,11 +291,13 @@ elif st.session_state.stage == 3:
             placeholder="예)한나무",
             key="parent_name_input"
         )
+        if parent_name and not re.match(r'^[가-힣]+$', parent_name):
+            st.error("한글 조합으로만 작성하세요.")
+            parent_name = ""
         relationship = st.text_input(
             "(법정대리인) 학생과의 관계",
             placeholder="예)부, 모, 조부, 조모 등",
-            key="relationship_input",
-            on_change=lambda: st.session_state.relationship_input if st.session_state.relationship_input else None,
+            key="relationship_input"
         )
         if relationship and not re.match(r'^[가-힣\s]+$', relationship):
             st.error("한글 조합만 입력 가능합니다.")
@@ -311,9 +318,23 @@ elif st.session_state.stage == 3:
         else:
             parent_phone = ""
         st.session_state.move_date = st.date_input("전입 예정일", value=None)
-        address = st.text_input("전입 예정 주소", value="택지 A-0블록 아파트")
+        address = st.text_input(
+            "전입 예정 주소",
+            placeholder="예)행복택지 A-1블록 사랑아파트",
+            key="address_input"
+        )
+        if address and not re.match(r'^[가-힣0-9\s-]+$', address):
+            st.error("한글 조합과 숫자로만 작성하세요.")
+            address = ""
         school_name = st.text_input("전학 예정 학교", value=st.session_state.selected_school, disabled=True)
-        next_grade = st.text_input("전학 예정 학년", value="학년")
+        next_grade = st.text_input(
+            "전학 예정 학년",
+            placeholder="예)2학년",
+            key="next_grade_input"
+        )
+        if next_grade and not re.match(r'^[1-6]학년$', next_grade):
+            st.error("한글 조합과 1~6 사이 숫자로만 작성하세요.")
+            next_grade = ""
 
     col1, col2 = st.columns(2)
     with col1:
