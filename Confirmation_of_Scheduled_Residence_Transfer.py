@@ -439,14 +439,17 @@ elif st.session_state.stage == 3:
                             if key == "{{address}}":
                                 if idx == 0:
                                     x -= 7
-                                    wrapped_text = "\n".join(textwrap.wrap(text, width=20))
-                                    draw.text((x, y), wrapped_text, font=font, fill='black')
-                                    continue 
+                                    wrapped_lines = textwrap.wrap(text, width=20)
+                                    current_y = y
+                                    for line in wrapped_lines:
+                                        draw.text((x, current_y), line, font=font, fill='black')
+                                        current_y += font.getbbox(line)[3] - font.getbbox(line)[1]
+                                    continue
                                 elif idx == 1:
                                     x -= 50
                             if key == "{{next_grade}}" and idx == 1:
                                 x += 50
-                        draw.text((x, y), text, font=font, fill='black') 
+                        draw.text((x, y), text, font=font, fill='black')
 
             draw_texts(draw1, consent_positions, consent_map, is_transfer=False)
             student_sign_buffer.seek(0)
