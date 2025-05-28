@@ -113,7 +113,7 @@ if 'stage' not in st.session_state:
 # 입력 검증 함수
 def validate_inputs(student_name, parent_name, student_school, student_birth_date, parent_phone, address, next_grade, move_date):
     if not all([student_name, parent_name, student_school, student_birth_date, parent_phone, address, next_grade, move_date]):
-        return False, "모든 작성칸을 올바르게 작성하세요."
+        return False, "빈칸이 없는지 확인 후 모든 작성칸을 올바르게 작성하세요."
     return True, ""
 
 # 이메일 발송 함수
