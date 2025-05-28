@@ -439,15 +439,14 @@ elif st.session_state.stage == 3:
                             if key == "{{address}}":
                                 if idx == 0:
                                     x -= 7
-                                    # 이 부분이 수정되었습니다.
                                     wrapped_text = "\n".join(textwrap.wrap(text, width=20))
                                     draw.text((x, y), wrapped_text, font=font, fill='black')
-                                    continue # 이 부분을 추가하여 아래의 draw.text가 다시 실행되지 않도록 합니다.
+                                    continue 
                                 elif idx == 1:
                                     x -= 50
                             if key == "{{next_grade}}" and idx == 1:
                                 x += 50
-                        draw.text((x, y), text, font=font, fill='black') # 이 부분은 이제 address 첫 번째 인스턴스에 대해 실행되지 않습니다.
+                        draw.text((x, y), text, font=font, fill='black') 
 
             draw_texts(draw1, consent_positions, consent_map, is_transfer=False)
             student_sign_buffer.seek(0)
