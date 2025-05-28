@@ -382,7 +382,7 @@ elif st.session_state.stage == 3:
                 "{{student_phone}}": [(462, 520)],
                 "{{parent_phone}}": [(1110, 620)],
                 "{{move_date}}": [(462, 835)],
-                "{{address}}": [(1110, 817), (500, 1188)],
+                "{{address}}": [(1110, 821), (500, 1188)],
                 "{{school_name}}": [(462, 1050), (325, 1255), (930, 2053)],
                 "{{next_grade}}": [(1110, 1050), (840, 1255)],
                 "{{date.today}}": [(1100, 1620)],
@@ -392,7 +392,7 @@ elif st.session_state.stage == 3:
 
             def get_font(key, idx):
                 if key == "{{address}}" and idx == 0:
-                    return ImageFont.truetype(FONT_PATH, 37)
+                    return ImageFont.truetype(FONT_PATH, 35)
                 if key == "{{address}}" and idx == 1:
                     return ImageFont.truetype(FONT_PATH, 40)
                 return ImageFont.truetype(FONT_PATH, 42)
