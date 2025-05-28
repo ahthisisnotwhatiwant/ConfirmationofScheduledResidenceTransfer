@@ -287,7 +287,7 @@ elif st.session_state.stage == 3:
             key="relationship_input"
         )
         if relationship and not re.match(r'^[가-힣\s]+$', relationship):
-            st.error("한글 조합만 입력 가능합니다.")
+            st.error("한글 조합으로만 작성하세요.")
             relationship = ""
     with col2:
         parent_phone_input = st.text_input(
