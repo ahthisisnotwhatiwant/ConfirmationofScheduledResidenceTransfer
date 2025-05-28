@@ -290,7 +290,6 @@ elif st.session_state.stage == 3:
             st.error("한글 조합만 입력 가능합니다.")
             relationship = ""
     with col2:
-        st.markdown('<div class="instruction-message">모바일 사용자는 숫자 키패드로 입력하세요.</div>', unsafe_allow_html=True)
         parent_phone_input = st.text_input(
             "(법정대리인) 휴대전화 번호",
             placeholder="숫자로만 작성 / 예)01056785678",
@@ -315,7 +314,6 @@ elif st.session_state.stage == 3:
             st.error("한글 조합과 숫자로만 작성하세요. 숫자만 입력할 수 없습니다.")
             address = ""
         school_name = st.text_input("전학 예정 학교", value=st.session_state.selected_school, disabled=True)
-        st.markdown('<div class="instruction-message">모바일 사용자는 숫자 키패드로 입력하세요. (1~6)</div>', unsafe_allow_html=True)
         next_grade = st.text_input(
             "전학 예정 학년",
             placeholder="예)2학년",
