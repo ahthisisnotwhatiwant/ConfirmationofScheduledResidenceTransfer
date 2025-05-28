@@ -314,17 +314,13 @@ elif st.session_state.stage == 3:
             st.error("한글, 기호, 알파벳으로만 작성하세요.")
             address = ""
         school_name = st.text_input("전학 예정 학교", value=st.session_state.selected_school, disabled=True)
-        next_grade = st.text_input(
+        next_grade = st.selectbox(
             "전학 예정 학년",
-            placeholder="예)2",
+            options=["1학년", "2학년", "3학년", "4학년", "5학년", "6학년"],
+            index=None,
+            placeholder="학년을 선택하세요",
             key="next_grade_input"
         )
-        if next_grade and not re.match(r'^[1-6]$', next_grade):
-            st.error("1~6 사이 숫자만 작성하세요.")
-            next_grade = ""
-        # PDF 출력 시 '숫자+학년' 형태로 변환
-        if next_grade and re.match(r'^[1-6]$', next_grade):
-            next_grade = f"{next_grade}학년"
 
     col1, col2 = st.columns(2)
     with col1:
