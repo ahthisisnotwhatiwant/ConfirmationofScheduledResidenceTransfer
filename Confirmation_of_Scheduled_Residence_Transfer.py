@@ -271,14 +271,30 @@ elif st.session_state.stage == 3:
             "(학생) 생년월일",
             value=None,
             key="student_birth_date_input"
+       )
+        student_school = st.text_input(
+            "(학생) 현 소속 학교 및 학년",
+            placeholder="예)초등, 중, 고등학교 학년",
+            key="student_school_input",
+            on_change=lambda: st.session_state.student_school_input if st.session_state.student_school_input else None
         )
-        student_school = st.text_input("(학생) 현 소속 학교 및 학년", value="학교 학년")
+        if student_school and not re.match(r'^[가-힣0-9\s]+$', student_school):
+            st.error("한글 조합과 숫자만 입력 가능합니다.")
+            student_school = ""
         parent_name = st.text_input(
             "(법정대리인) 성명",
             placeholder="한글로만 작성 / 예)한나무",
             key="parent_name_input"
         )
-        relationship = st.text_input("(법정대리인) 학생과의 관계", value="부, 모 등")
+        relationship = st.text_input(
+            "(법정대리인) 학생과의 관계",
+            placeholder="예)부, 모, 조부, 조모 등",
+            key="relationship_input",
+            on_change=lambda: st.session_state.relationship_input if st.session_state.relationship_input else None,
+        )
+        if relationship and not re.match(r'^[가-힣\s]+$', relationship):
+            st.error("한글 조합만 입력 가능합니다.")
+            relationship = ""
     with col2:
         parent_phone_input = st.text_input(
             "(법정대리인) 휴대전화 번호",
