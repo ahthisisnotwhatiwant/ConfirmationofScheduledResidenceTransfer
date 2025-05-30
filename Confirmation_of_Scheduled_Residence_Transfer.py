@@ -313,7 +313,7 @@ elif st.session_state.stage == 3:
         st.session_state.move_date = st.date_input("전입 예정일", value=None)
         address = st.text_input(
             "전입 예정 주소",
-            placeholder="예)행복택지 A-1블록 사랑아파트",
+            placeholder="예) 행복택지 A-1블록 사랑아파트",
             key="address_input"
         )
         if address and not re.match(r'^[가-힣a-zA-Z1-99\s-]+$', address):
