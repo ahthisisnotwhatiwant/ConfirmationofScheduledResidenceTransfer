@@ -1,5 +1,5 @@
 import streamlit as st
-from datetime import date
+from datetime import date, timedelta
 import os
 import uuid
 from PIL import Image, ImageDraw, ImageFont
@@ -251,7 +251,7 @@ elif st.session_state.stage == 3:
     with col1:
         student_name = st.text_input(
             "(학생) 성명",
-            placeholder="예)한잎새",
+            placeholder="예) 한잎새",
             key="student_name_input"
         )
         if student_name and not re.match(r'^[가-힣]+$', student_name):
@@ -260,14 +260,20 @@ elif st.session_state.stage == 3:
         else:
             st.session_state.student_name = student_name
 
+    # 작성일자 기준으로 앞뒤 30 년 범위 설정
+        today = date.today()
+        min_date = today - timedelta(days=30*365)  # 30 년 전
+        max_date = today + timedelta(days=30*365)  # 30 년 후
         st.session_state.student_birth_date = st.date_input(
             "(학생) 생년월일",
             value=None,
+            min_value=min_date,
+            max_value=max_date,
             key="student_birth_date_input"
         )
         student_school = st.text_input(
             "(학생) 현 소속 학교 및 학년",
-            placeholder="예)00초등학교, 00중학교, 00고등학교 1학년",
+            placeholder="예) 00초등학교, 00중학교, 00고등학교 1학년",
             key="student_school_input"
         )
         if student_school and (not re.match(r'^[가-힣0-9\s]+$', student_school) or re.match(r'^\d+$', student_school)):
@@ -275,7 +281,7 @@ elif st.session_state.stage == 3:
             student_school = ""
         parent_name = st.text_input(
             "(법정대리인) 성명",
-            placeholder="예)한나무",
+            placeholder="예) 한나무",
             key="parent_name_input"
         )
         if parent_name and not re.match(r'^[가-힣]+$', parent_name):
@@ -283,7 +289,7 @@ elif st.session_state.stage == 3:
             parent_name = ""
         relationship = st.text_input(
             "(법정대리인) 학생과의 관계",
-            placeholder="예)부, 모, 조부, 조모 등",
+            placeholder="예) 부, 모, 조부, 조모 등",
             key="relationship_input"
         )
         if relationship and not re.match(r'^[가-힣\s]+$', relationship):
