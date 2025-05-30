@@ -310,7 +310,7 @@ elif st.session_state.stage == 3:
                 parent_phone = formatted_parent_phone
         else:
             parent_phone = ""
-                st.markdown("""
+        st.markdown("""
             <div style="position: relative; display: inline-block;">
                 전입 예정일
                 <span style="cursor: pointer; color: #4c51bf; font-size: 0.8rem; margin-left: 5px;">ⓘ</span>
