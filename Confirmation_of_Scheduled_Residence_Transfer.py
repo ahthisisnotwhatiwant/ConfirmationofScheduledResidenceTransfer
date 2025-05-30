@@ -310,16 +310,33 @@ elif st.session_state.stage == 3:
                 parent_phone = formatted_parent_phone
         else:
             parent_phone = ""
-        st.session_state.move_date = st.date_input("전입 예정일", value=None)
+                st.markdown("""
+            <div style="position: relative; display: inline-block;">
+                전입 예정일
+                <span style="cursor: pointer; color: #4c51bf; font-size: 0.8rem; margin-left: 5px;">ⓘ</span>
+                <span style="visibility: hidden; background-color: #f0f2ff; color: #333; padding: 5px; border-radius: 5px; position: absolute; z-index: 1; top: -40px; left: 0; width: 200px;">
+                    전입 예정일은 학생이 새 주소지로 주민등록을 이전할 계획인 날짜를 의미합니다. 예: 2025년 7월 1일
+                </span>
+            </div>
+        """, unsafe_allow_html=True)
+        st.session_state.move_date = st.date_input(
+            "",
+            value=None,
+            key="move_date_input"
+        )
         address = st.text_input(
             "전입 예정 주소",
-            placeholder="예)행복택지 A-1블록 사랑아파트",
+            placeholder="예) 행복택지 A-1블록 사랑아파트",
             key="address_input"
         )
         if address and not re.match(r'^[가-힣a-zA-Z1-99\s-]+$', address):
             st.error("한글, 알파벳, 숫자, 기호로만 작성하세요.")
             address = ""
-        school_name = st.text_input("전학 예정 학교", value=st.session_state.selected_school, disabled=True)
+        school_name = st.text_input(
+            "전학 예정 학교",
+            value=st.session_state.selected_school,
+           disabled=True
+        )
         next_grade = st.selectbox(
             "전학 예정 학년",
             options=["1학년", "2학년", "3학년", "4학년", "5학년", "6학년"],
@@ -327,7 +344,6 @@ elif st.session_state.stage == 3:
             placeholder="학년을 선택하세요.",
             key="next_grade_input"
         )
-
     col1, col2 = st.columns(2)
     with col1:
         st.write("학생 서명")
