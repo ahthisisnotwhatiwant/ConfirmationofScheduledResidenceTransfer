@@ -267,7 +267,7 @@ elif st.session_state.stage == 3:
         )
         student_school = st.text_input(
             "(학생) 현 소속 학교 및 학년",
-            placeholder="예)대한초등학교, 대한중학교, 대한고등학교 1학년",
+            placeholder="예)00초등학교, 00중학교, 00고등학교 1학년",
             key="student_school_input"
         )
         if student_school and (not re.match(r'^[가-힣0-9\s]+$', student_school) or re.match(r'^\d+$', student_school)):
@@ -292,7 +292,7 @@ elif st.session_state.stage == 3:
     with col2:
         parent_phone_input = st.text_input(
             "(법정대리인) 휴대전화 번호",
-            placeholder="숫자로만 작성 / 예)01056785678",
+            placeholder="예)01056785678/숫자로만 작성",
             key="parent_phone_input"
         )
         if parent_phone_input:
