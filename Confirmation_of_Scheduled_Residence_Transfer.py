@@ -298,7 +298,7 @@ elif st.session_state.stage == 3:
     with col2:
         parent_phone_input = st.text_input(
             "(법정대리인) 휴대전화 번호",
-            placeholder="예)01056785678/숫자로만 작성",
+            placeholder="예) 01056785678 / 숫자로만 작성",
             key="parent_phone_input"
         )
         if parent_phone_input:
