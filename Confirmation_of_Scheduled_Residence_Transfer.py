@@ -401,7 +401,7 @@ elif st.session_state.stage == 3:
                 "{{student_birth_date}}": [(462, 520)],
                 "{{parent_phone}}": [(1110, 620)],
                 "{{move_date}}": [(462, 835)],
-                "{{address}}": [(1110, 818), (500, 1185)],
+                "{{address}}": [(1110, 816), (500, 1185)],
                 "{{school_name}}": [(462, 1050), (310, 1255), (925, 2053)],
                 "{{next_grade}}": [(1110, 1050), (840, 1255)],
                 "{{date.today}}": [(1100, 1620)],
@@ -415,7 +415,7 @@ elif st.session_state.stage == 3:
                 if key == "{{address}}" and idx == 1:
                     return ImageFont.truetype(FONT_PATH, 40)
                 if key == "{{student_school}}" and idx == 0:
-                    return ImageFont.truetype(FONT_PATH, 35)
+                    return ImageFont.truetype(FONT_PATH, 34)
                 return ImageFont.truetype(FONT_PATH, 42)
 
             consent_map = {
