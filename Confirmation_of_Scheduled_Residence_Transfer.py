@@ -113,7 +113,7 @@ if 'stage' not in st.session_state:
 # 입력 검증 함수
 def validate_inputs(student_name, parent_name, student_school, student_birth_date, parent_phone, address, next_grade, move_date):
     if not all([student_name, parent_name, student_school, student_birth_date, parent_phone, address, next_grade, move_date]):
-        return False, "빈칸이 없는지 확인 후 모든 작성칸을 올바르게 작성하세요."
+        return False, "빈칸 확인 후 모든 작성칸을 예시에 따라 작성하세요."
     return True, ""
 
 # 이메일 발송 함수
@@ -391,7 +391,7 @@ elif st.session_state.stage == 3:
                 "{{student_sign_path}}": [(1060, 1665)],
                 "{{parent_name}}": [(825, 1835)],
                 "{{parent_sign_path}}": [(1060, 1810)],
-                "{{school_name}}": [(930, 1990)],
+                "{{school_name}}": [(930, 1988)],
             }
             transfer_positions = {
                 "{{student_name}}": [(462, 420), (825, 1755)],
@@ -508,7 +508,7 @@ elif st.session_state.stage == 4:
     if st.session_state.pdf_bytes and st.session_state.filename:
         try:
             images = convert_from_bytes(st.session_state.pdf_bytes, dpi=150)
-            with st.expander("📄 전입예정확인서 미리보기", expanded=True):
+            with st.expander("📄 전입예정확인서 미리보기", expanded=False):
                 for i, image in enumerate(images):
                     st.image(image, use_container_width=True)
 
