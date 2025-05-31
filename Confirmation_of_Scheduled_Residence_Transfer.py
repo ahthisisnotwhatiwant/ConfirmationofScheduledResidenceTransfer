@@ -508,7 +508,7 @@ elif st.session_state.stage == 4:
     if st.session_state.pdf_bytes and st.session_state.filename:
         try:
             images = convert_from_bytes(st.session_state.pdf_bytes, dpi=150)
-            with st.expander("📄 전입예정확인서 미리보기", expanded=False):
+            with st.expander("📄 전입예정확인서 미리보기", expanded=True):
                 for i, image in enumerate(images):
                     st.image(image, use_container_width=True)
 
