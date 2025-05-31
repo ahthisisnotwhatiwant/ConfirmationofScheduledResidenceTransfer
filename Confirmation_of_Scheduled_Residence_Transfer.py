@@ -276,9 +276,13 @@ elif st.session_state.stage == 3:
             placeholder="예) 00초등학교, 00중학교, 00고등학교 1학년",
             key="student_school_input"
         )
-        if student_school and (not re.match(r'^[가-힣0-9\s]+$', student_school) or re.match(r'^\d+$', student_school)):
+        if student_school:
+            if "학교" not in student_school:
+                st.error("'학교'를 반드시 포함하여 작성하세요.")
+                student_school = ""
+            elif not re.match(r'^[가-힣0-9\s]+$', student_school) or re.match(r'^\d+$', student_school):
             st.error("한글과 숫자로만 작성하세요.")
-            student_school = ""
+                student_school = ""
         parent_name = st.text_input(
             "(법정대리인) 성명",
             placeholder="예) 한나무",
