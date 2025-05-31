@@ -445,7 +445,7 @@ elif st.session_state.stage == 3:
                             if key == "{{address}}":
                                 if idx == 0:
                                     x -= 7
-                                    wrapped_lines = textwrap.wrap(text, width=20)
+                                    wrapped_lines = textwrap.wrap(text, width=11)
                                     current_y = y
                                     for line in wrapped_lines:
                                         draw.text((x, current_y), line, font=font, fill='black')
