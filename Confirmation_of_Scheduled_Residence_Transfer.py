@@ -414,6 +414,8 @@ elif st.session_state.stage == 3:
                     return ImageFont.truetype(FONT_PATH, 33)
                 if key == "{{address}}" and idx == 1:
                     return ImageFont.truetype(FONT_PATH, 40)
+                if key == "{{student_school}}" and idx == 0:
+                    return ImageFont.truetype(FONT_PATH, 37)
                 return ImageFont.truetype(FONT_PATH, 42)
 
             consent_map = {
