@@ -396,12 +396,12 @@ elif st.session_state.stage == 3:
             transfer_positions = {
                 "{{student_name}}": [(462, 420), (825, 1755)],
                 "{{parent_name}}": [(1110, 420), (825, 1888)],
-                "{{student_school}}": [(440, 620)],
+                "{{student_school}}": [(440, 622)],
                 "{{relationship}}": [(1110, 520)],
                 "{{student_birth_date}}": [(462, 520)],
                 "{{parent_phone}}": [(1110, 620)],
                 "{{move_date}}": [(462, 835)],
-                "{{address}}": [(1110, 822), (500, 1188)],
+                "{{address}}": [(1110, 818), (500, 1188)],
                 "{{school_name}}": [(462, 1050), (310, 1255), (925, 2053)],
                 "{{next_grade}}": [(1110, 1050), (840, 1255)],
                 "{{date.today}}": [(1100, 1620)],
@@ -415,7 +415,7 @@ elif st.session_state.stage == 3:
                 if key == "{{address}}" and idx == 1:
                     return ImageFont.truetype(FONT_PATH, 40)
                 if key == "{{student_school}}" and idx == 0:
-                    return ImageFont.truetype(FONT_PATH, 37)
+                    return ImageFont.truetype(FONT_PATH, 35)
                 return ImageFont.truetype(FONT_PATH, 42)
 
             consent_map = {
